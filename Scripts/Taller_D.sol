@@ -1,6 +1,6 @@
-pragma solidity 0.5.1;
+pragma solidity ^0.5.0;
 
-contract ReunionFotos{
+contract Taller_D{
 
     struct Reunion{
         uint idReunion;
@@ -45,6 +45,18 @@ contract ReunionFotos{
         return(reuniones[idRe].listFotos[indexFoto-1].url, reuniones[idRe].listFotos[indexFoto-1].hs);
         }else{
             return("","");
+        }
+    }
+    
+    
+    
+    function verificarFoto(uint idRe, uint idFoto, string memory HAS) public view returns (bool){
+    
+    string memory lel = reuniones[idRe].listFotos[idFoto-1].hs ;
+        if(keccak256(abi.encodePacked(lel)) == keccak256(abi.encodePacked(HAS))){
+            return true;
+        }else{
+            return false;
         }
     }
     
