@@ -1,0 +1,26 @@
+
+<div>
+  <section>
+    <h1>Registro de Estaciones de Gas</h1>
+     
+    <label>Nombre de la Estacion: </label>
+    <input type="text" [(ngModel)]="Estacion.nombreEstacion" placeholder="name">
+    <br>
+    <label>Precio del Diesel: </label>
+    <input type="number" [(ngModel)]="Estacion.tiposCombustibles['0'][1]"   placeholder="ETH">
+    <br>
+    <label>Precio del GAS: </label>
+    <input type="number" [(ngModel)]="Estacion.tiposCombustibles['1'][1]" placeholder="ETH">
+    <br>
+    <label>Precio Corriente: </label>
+    <input type="number" [(ngModel)]="Estacion.tiposCombustibles['2'][1]" placeholder="ETH">
+    <br>
+    <button (click) = "setGasInfo()">Registrar Estacion</button>
+
+    <button (click) = "getGasInfo()">Consultar Info</button>
+
+
+
+  </section>
+</div>
+
