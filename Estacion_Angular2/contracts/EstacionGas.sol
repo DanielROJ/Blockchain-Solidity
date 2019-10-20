@@ -7,10 +7,10 @@ contract EstacionGas{
 
     event RegistroEstacionExitosa(uint);
     event RegistroCombustibleExitoso();
-    event DepositoRealizado();
-    event DepositoFallido();
-    event DepositoCancelado();
-    event ErrorCancelacion();
+    event DepositoRealizado(bool);
+    event DepositoFallido(bool);
+    event DepositoCancelado(bool);
+    event ErrorCancelacion(bool);
     event CargaGasolinaExitosa(TipoCombustible, uint, uint, uint);
     event CargaGasolinaFallida();
     event InformacionGasStation();
@@ -25,11 +25,11 @@ contract EstacionGas{
         uint deposito;
         uint cantidadSolicitadaFuel;
         uint depositoDevuelta;
-        bool valida; // Sirve para saber si la Transaccion todavia es valida / (False => cuando se cancela el deposito antes de la carga de combustible o cuado se cargo el combustible);
+        bool valida; // Sirve para saber si la Transaccion todavia es valida /(False => cuando se cancela el deposito antes de la carga de combustible o cuado se cargo el combustible);
     }
 
     enum TipoCombustible {GAS, Diesel, Corriente} //Tipos de combustible que manejan todas las estaciones
-    TipoCombustible[] listaCombustibles = [TipoCombustible.GAS, TipoCombustible.Diesel, TipoCombustible.Corriente];// Lista de indices de los combustibles para saber los tipos de combustible    
+    TipoCombustible[] listaCombustibles = [TipoCombustible.GAS, TipoCombustible.Diesel, TipoCombustible.Corriente]; // Lista de indices de los Tipos de combustibles
     mapping(address => Estacion) estaciones; // Registro de Todas la estaciones en la red;
     mapping(address => uint) listaVehiculosGlobal; //Registro de todos los vehiculos  que hayan interactuado con alguna estacion;
     mapping(address=>uint) SaldoEstaciones;// Registro de saldo de ethers ganados por cada estacion;
@@ -56,81 +56,59 @@ function sendDeposit(address direccionEstacion,  uint idVehiculo,  TipoCombustib
     if(msg.value >= (estaciones[direccionEstacion].listaPreciosTipoCombustible[uint(tipo)] * cantidadFuel)){
     estaciones[direccionEstacion].listaTransacciones[idVehiculo].deposito += msg.value;
     estaciones[direccionEstacion].listaTransacciones[idVehiculo].cantidadSolicitadaFuel = cantidadFuel;
-    estaciones[direccionEstacion].listaTransacciones[idVehiculo].fuelSolicitado = tipo; 
+    estaciones[direccionEstacion].listaTransacciones[idVehiculo].fuelSolicitado = tipo;
     estaciones[direccionEstacion].listaTransacciones[idVehiculo].valida = true;
     estaciones[direccionEstacion].listaTransacciones[idVehiculo].direccionVehiculo = msg.sender;
     listaVehiculosGlobal[msg.sender] = idVehiculo;
-    emit DepositoRealizado();
+    emit DepositoRealizado(true);
     }else{
-    emit DepositoFallido();
-    revert('error');
+    emit DepositoFallido(false);
+    revert('La recarga no cumple el precio minimo dle combustible');
     }
 }
 function enviarFuel( address payable direccionEstacion, uint idVehiculo) public payable{
     if(verifyDeposit(direccionEstacion, idVehiculo) == true){
         uint precio = getPriceFuel(direccionEstacion, estaciones[direccionEstacion].listaTransacciones[idVehiculo].fuelSolicitado) * estaciones[direccionEstacion].listaTransacciones[idVehiculo].cantidadSolicitadaFuel;
-        
         estaciones[direccionEstacion].listaTransacciones[idVehiculo].valida = false;
-    
-    
         if(estaciones[direccionEstacion].listaTransacciones[idVehiculo].deposito - precio == 0){
-            
-        estaciones[direccionEstacion].listaTransacciones[idVehiculo].depositoDevuelta = 0;  
+        estaciones[direccionEstacion].listaTransacciones[idVehiculo].depositoDevuelta = 0;
         SaldoEstaciones[direccionEstacion] += estaciones[direccionEstacion].listaTransacciones[idVehiculo].deposito;
-        direccionEstacion.transfer(estaciones[direccionEstacion].listaTransacciones[idVehiculo].deposito);  
-        
-        emit CargaGasolinaExitosa(estaciones[direccionEstacion].listaTransacciones[idVehiculo].fuelSolicitado,estaciones[direccionEstacion].listaTransacciones[idVehiculo].cantidadSolicitadaFuel, precio, 0 );
-        
+        direccionEstacion.transfer(estaciones[direccionEstacion].listaTransacciones[idVehiculo].deposito);
+        emit CargaGasolinaExitosa(estaciones[direccionEstacion].listaTransacciones[idVehiculo].fuelSolicitado,estaciones[direccionEstacion].listaTransacciones[idVehiculo].cantidadSolicitadaFuel, precio, 0);
         }else{
-            
             if(estaciones[direccionEstacion].listaTransacciones[idVehiculo].deposito - precio > 0){
                 uint depositoDevuelta = estaciones[direccionEstacion].listaTransacciones[idVehiculo].deposito - precio;
                 estaciones[direccionEstacion].listaTransacciones[idVehiculo].depositoDevuelta = depositoDevuelta;
                 estaciones[direccionEstacion].listaTransacciones[idVehiculo].direccionVehiculo.transfer(depositoDevuelta);
                 direccionEstacion.transfer(estaciones[direccionEstacion].listaTransacciones[idVehiculo].deposito - depositoDevuelta);
-                SaldoEstaciones[direccionEstacion] += estaciones[direccionEstacion].listaTransacciones[idVehiculo].deposito - depositoDevuelta ;
-                emit CargaGasolinaExitosa(estaciones[direccionEstacion].listaTransacciones[idVehiculo].fuelSolicitado,estaciones[direccionEstacion].listaTransacciones[idVehiculo].cantidadSolicitadaFuel, precio, depositoDevuelta );
-                
-            }else{
-                
+                SaldoEstaciones[direccionEstacion] += estaciones[direccionEstacion].listaTransacciones[idVehiculo].deposito - depositoDevuelta;
+                emit CargaGasolinaExitosa(estaciones[direccionEstacion].listaTransacciones[idVehiculo].fuelSolicitado,estaciones[direccionEstacion].listaTransacciones[idVehiculo].cantidadSolicitadaFuel, precio, depositoDevuelta);
+                }else{
                 emit CargaGasolinaFallida();
-                
-                revert();
-            }            
-            
-
+                revert('El deposito no tiene fondos');
+            }
         }
     }else{
         emit CargaGasolinaFallida();
-        revert();
+        revert('El deposito no es valido');
     }
-    
-} 
- 
- 
+}
 function verifyDeposit(address direccionEstacion, uint idVehiculo) public view returns(bool){
     return(estaciones[direccionEstacion].listaTransacciones[idVehiculo].valida);
-} 
- 
- 
- 
-
+}
 function cancelDeposit(address direccionEstacion, uint idVehiculo) public payable {
     if( estaciones[direccionEstacion].listaTransacciones[idVehiculo].valida == true ){
          estaciones[direccionEstacion].listaTransacciones[idVehiculo].valida = false;
          estaciones[direccionEstacion].listaTransacciones[idVehiculo].direccionVehiculo.transfer(estaciones[direccionEstacion].listaTransacciones[idVehiculo].deposito);
-         emit DepositoCancelado();
+         emit DepositoCancelado(true);
     }else{
-         emit ErrorCancelacion();
-        revert();
+         emit ErrorCancelacion(false);
+        revert('No se puede Cancelar la Transaccion');
     }
 }
 
 
 function getSaldoEstacion(address direccionEstacion) public view returns(uint){
-    
     return SaldoEstaciones[direccionEstacion];
 }
-
-    
 }
