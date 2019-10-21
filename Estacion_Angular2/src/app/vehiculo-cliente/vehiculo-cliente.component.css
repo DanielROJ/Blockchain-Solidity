@@ -1,11 +1,12 @@
 
+
 input:focus, textarea:focus {
     /* Para dar un pequeño destaque en elementos activos*/
     border-color: #000;
 }
 
 form{
-    margin: 80px 10px;
+    margin: 0 auto;
     width: 400px;
     padding: 1em;
     border: solid 1px black;
@@ -13,25 +14,7 @@ form{
 
 }
 
-#sec2{
-    margin: 0 auto;
-    width: 500px;
-    padding: 1em;
-    border: solid 1px black;
-    background-color: gold;
-}
 
-section{
-    margin:10px 10px;
-    width: 400px;
-    border: solid 1px #000;
-    padding:1em;
-    background-color: dodgerblue;
-}
-
-td,th{
-    border: solid 1px black;
-}
 
 section div+div ,form div + div {
     margin-top: 1em;

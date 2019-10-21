@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material';
 @Injectable()
 export class EstacionService {
   public EstacionCoin:any;
- 
+  public tool : any;
 
   constructor(private matSnackBar: MatSnackBar) { 
   }
@@ -68,7 +68,7 @@ export class EstacionService {
     }
     try {
       const contratoDeploy = await this.EstacionCoin.deployed();
-      const resultEvent = await contratoDeploy.setPriceFuel.sendTransaction(addresEstacion,idTipoCombustible,precio,{from:addresEstacion});
+      const resultEvent = await contratoDeploy.setPriceFuel.sendTransaction(addresEstacion,idTipoCombustible,this.tool.toWei(String(precio)),{from:addresEstacion});
       console.log(resultEvent);
     } catch (e) {
       console.log(e);

@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+
 @Injectable()
 export class VehiculoService {
   public EstacionCoin:any;
- 
+  public tool : any;
 
   constructor(private matSnackBar: MatSnackBar) { 
   }
   
   
-  async EnviarDeposito(addresEstacion:string, idVehiculo:Number, idTipoCombustible:Number, cantidadFuel:Number){
+  async EnviarDeposito(addresEstacion:string, idVehiculo:Number, idTipoCombustible:Number, cantidadFuel:Number,addVehiculo:string,cantidadETH:Number){
     if (!this.EstacionCoin) {
       this.setStatus('Metacoin is not loaded, unable to send transaction');
       return;
     }
     try {
       const contratoDeploy = await this.EstacionCoin.deployed();
-      const resultEvent = await contratoDeploy.sendDeposit.sendTransaction(addresEstacion,idVehiculo,idTipoCombustible,cantidadFuel,{from:addresEstacion});
+      const resultEvent = await contratoDeploy.sendDeposit.sendTransaction(addresEstacion,idVehiculo,idTipoCombustible,cantidadFuel,{from:addVehiculo, value:this.tool.toWei(String(cantidadETH))  });
       return resultEvent;
     } catch (e) {
       console.log(e);

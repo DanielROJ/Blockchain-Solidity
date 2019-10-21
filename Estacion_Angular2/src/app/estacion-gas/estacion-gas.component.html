@@ -1,27 +1,113 @@
+<h1>Cuenta Actual direccion : {{model.account}}</h1>
+<h2>Propietario Cuenta : {{nombreEstacion}}</h2>
+<h3>Balance ganado : {{balanceGanado}} ETH</h3>
+
+
+
+<form>
+  <h4 style="text-align: center;">Registro de Estaciones 
+  </h4>
+  <mat-icon aria-hidden="false" aria-label="Example home icon">map</mat-icon>
+
+
+  <div>
+    <label>Nombre de la Estacion: </label>
+    <input type="text" [(ngModel)]="nombreEstacion" placeholder="name" name="nombreEstacion" required>
+  </div>
+
+  <div>
+    <label>Precio del Diesel: </label>
+    <input type="number" [(ngModel)]="tiposCombustibles[0].precioCombustible"  placeholder="ETH" min="1" max="30" name="first" required>
+  </div>
+
+  <div>
+    <label>Precio del GAS: </label>
+    <input type="number" [(ngModel)]="tiposCombustibles[1].precioCombustible"  placeholder="ETH" min="1" max="30" name="second" required>
+  </div>
+
+  <div>
+    <label>Precio Corriente: </label>
+    <input type="number" [(ngModel)]="tiposCombustibles[2].precioCombustible"  placeholder="ETH" min="1" max="30" name="second"  required>
+  </div>
+
+
+  <div>
+    <button (click)="setGasInfo()">Registrar Estacion</button>
+  </div>
+</form>
+
 
 <div>
-  <section>
-    <h1>Registro de Estaciones de Gas</h1>
-     
-    <label>Nombre de la Estacion: </label>
-    <input type="text" [(ngModel)]="nombreEstacion" placeholder="name">
-    <br>
-    <label>Precio del Diesel: </label>
-    <input type="number" [(ngModel)]="tiposCombustibles[0].precioCombustible"   placeholder="ETH">
-    <br>
-    <label>Precio del GAS: </label>
-    <input type="number" [(ngModel)]="tiposCombustibles[1].precioCombustible" placeholder="ETH">
-    <br>
-    <label>Precio Corriente: </label>
-    <input type="number" [(ngModel)]="tiposCombustibles[2].precioCombustible" placeholder="ETH">
-    <br>
-    <button (click) = "setGasInfo()">Registrar Estacion</button>
 
-    <button (click) = "getGasInfo()">Consultar Info</button>
 
-<h1>Nombre de la estacion : {{nombreEstacion}}</h1>
-<h2>{{tiposCombustibles[0].nombreCombustible}} tiene el precio de {{tiposCombustibles[0].precioCombustible}}</h2>
+
+  <section id="sec1">
+    <button (click)="getGasInfo()">Consultar Estacion</button>
+    <div>
+      <h3> INFORMACION ESTACION {{nombreEstacion}}</h3>
+    </div>
+
+    <div>
+      <table>
+        <tr>
+          <th>
+            Nombre Combustible
+          </th>
+          <th>
+            Precio Combustible
+          </th>
+          <th>
+            Cantidad de Galones
+          </th>
+        </tr>
+
+        <tr *ngFor="let item of tiposCombustibles">
+            <td>
+              {{item.nombreCombustible}}
+            </td>
+            <td>
+              {{item.precioCombustible}} ETH
+            </td>
+            <td>
+              1
+            </td>
+        </tr>
+      </table>
+    </div>
+
 
   </section>
+
+<section>
+  <div>
+      <label>Ingresar id Vehiculo</label>
+      <input type="number" [(ngModel)]="idVehiculo" required>
+  </div>
+  <div>
+    <button (click) = "enviarFuel()">Enviar Combustible</button>
+  </div>
+</section>
+
+
 </div>
 
+
+<section id="sec2" *ngIf="transaccion !== unidefined">
+    <h1> Recibo</h1>
+    <div>
+      <h3>Tipo de Combustible: {{transaccion.TipoCombustible}}</h3>
+    </div>
+    <div>
+        <h3>Precio total ETH: {{transaccion.precioETH}}</h3>
+      </div>
+      <div>
+          <h3>deposito hecho en ETH : {{transaccion.depositoETH}}</h3>
+        </div>
+        <div>
+            <h3>deposito devuelta ETH: {{transaccion.depositoDevueltaETH}}</h3>
+          </div>
+          <div>
+              <h3>Cantidad De galones: {{transaccion.cantidadFuel}}</h3>
+            </div>     
+    </section>
+    

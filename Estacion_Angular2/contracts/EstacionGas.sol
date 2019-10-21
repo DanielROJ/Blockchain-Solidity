@@ -14,6 +14,7 @@ contract EstacionGas{
     event CargaGasolinaExitosa(TipoCombustible, uint, uint, uint);
     event CargaGasolinaFallida();
     event InformacionGasStation();
+    event CargaTransaccion(address, TipoCombustible,uint,uint,uint,bool);
     struct Estacion{
         string nombreEstacion;
         uint[3] listaPreciosTipoCombustible; //cada Estacion define su lista de precios, donde cada pocision (pos 0 => GAS) representa un tipo de combustible
@@ -111,4 +112,17 @@ function cancelDeposit(address direccionEstacion, uint idVehiculo) public payabl
 function getSaldoEstacion(address direccionEstacion) public view returns(uint){
     return SaldoEstaciones[direccionEstacion];
 }
+function getTransaccion(address direccionEstacion, uint idVehiculo) public{
+        address direccionVehiculo = estaciones[direccionEstacion].listaTransacciones[idVehiculo].direccionVehiculo;
+        TipoCombustible fuelSolicitado = estaciones[direccionEstacion].listaTransacciones[idVehiculo].fuelSolicitado;
+        uint deposito = estaciones[direccionEstacion].listaTransacciones[idVehiculo].deposito;
+        uint cantidadSolicitadaFuel = estaciones[direccionEstacion].listaTransacciones[idVehiculo].cantidadSolicitadaFuel;
+        uint depositoDevuelta = estaciones[direccionEstacion].listaTransacciones[idVehiculo].depositoDevuelta;
+        bool valida = estaciones[direccionEstacion].listaTransacciones[idVehiculo].valida;
+
+emit CargaTransaccion(direccionVehiculo,fuelSolicitado,deposito,cantidadSolicitadaFuel,depositoDevuelta,valida);
+}
+
+
+
 }

@@ -1,0 +1,39 @@
+
+<form>
+    <h4 style="text-align: center;">Registro de deposito
+    </h4>
+    <mat-icon aria-hidden="false" aria-label="Example home icon">map</mat-icon>
+  
+  
+    <div>
+      <label>direccion de la Estacion: </label>
+      <input type="text" [(ngModel)]="addEstacion" placeholder="name" name="nombreEstacion" required>
+    </div>
+  
+    <div>
+      <label>Ingrese el ID vehiculo: </label>
+      <input type="number" [(ngModel)]="vehiculo.idVehiculo"  placeholder="ID" min="1" max="30" name="first" required>
+    </div>
+  
+    <div>
+      <label>Seleccione Tipo Combustible: </label>
+      <select >
+       <option *ngFor="let item of tiposCombustibles" (click) = "idCobustibleSelector = item.idCombustible" >{{item.nombreCombustible}}</option>
+      </select>
+    </div>
+  
+    <div>
+      <label>Cantidad de Galones que solicita: </label>
+      <input type="number" [(ngModel)]="cantidadFuel"  placeholder="gal" min="1" max="30" name="second"  required>
+    </div>
+  
+    <div>
+      <label>Cantidad de ETHER que deposita: </label>
+      <input type="number" [(ngModel)]="cantidadETH"  placeholder="ETH" min="1" max="30" name="second"  required>
+    </div>
+    <div>
+      <button (click)="sendDeposit()">Enviar deposito</button>
+    </div>
+  </form>
+
+  <h1>{{idCobustibleSelector}}</h1>

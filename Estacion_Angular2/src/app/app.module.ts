@@ -14,13 +14,16 @@ import {
   MatInputModule,
   MatToolbarModule
 } from '@angular/material';
+import {MatIconModule} from '@angular/material/icon';
 import { EstacionGasComponent } from './estacion-gas/estacion-gas.component';
+import { VehiculoClienteComponent } from './vehiculo-cliente/vehiculo-cliente.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    EstacionGasComponent
+    EstacionGasComponent,
+    VehiculoClienteComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -33,7 +36,8 @@ import { EstacionGasComponent } from './estacion-gas/estacion-gas.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    MetaModule
+    MetaModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

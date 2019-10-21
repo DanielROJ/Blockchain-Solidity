@@ -50,7 +50,17 @@ export class Web3Service {
     return contractAbstraction;
 
   }
+   
+  /**
+   * Wei
+   */
+  public toWei(nETH:string){
+    return this.web3.utils.toWei(nETH,'ether');
+  }
 
+  public  fromWei(nWEY:string){
+    return this.web3.utils.fromWei(nWEY,'ether');
+  }
   private refreshAccounts() {
     this.web3.eth.getAccounts((err, accs) => {
       console.log('Refreshing accounts');
