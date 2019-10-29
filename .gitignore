@@ -9,7 +9,7 @@ package-lock.json
 /app/logs
 # dependencies
 /node_modules
-/build
+/build/*
 /test/*
 # IDEs and editors
 /.idea
