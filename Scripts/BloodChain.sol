@@ -25,9 +25,17 @@ enum TipoBolsa {Extra,Corriente, Doble}
 
 struct Empleado{
     uint idEmpleado;
+    string password;
     string nombre;
     string rol;
 }
+
+
+struct Ubicacion{
+    string long;
+    string lat;
+}
+
 
 struct Donacion{
     uint idDonacion;
@@ -35,6 +43,7 @@ struct Donacion{
     uint numeroVenoponuciones;
     uint numeroMinExtraccion;
     string fechaDonacion;
+    Ubicacion ubicacion;
     Documento HashConsentimiento;
     Documento HashEiquetaUnidad;
     Documento HashFirmaDonante;
@@ -66,6 +75,7 @@ struct Donante{
 
 struct LoteDonacion{
     uint idLote;
+    Ubicacion ubicacion;
     mapping(uint=> Donacion) listaUnidades;
 }
 
@@ -119,11 +129,12 @@ if(listaDonantes[cedula].cedula == 0){
 
 
 
-function createEmpleado(address _BancosSangre, uint idEmpleado, string memory nombre, string memory rol)public{
+function createEmpleado(address _BancosSangre, uint idEmpleado,string memory password, string memory nombre, string memory rol)public{
     if(listaBancos[_BancosSangre].EmpleadosAsociados[idEmpleado].idEmpleado == 0){
         listaBancos[_BancosSangre].EmpleadosAsociados[idEmpleado].idEmpleado  = idEmpleado;
         listaBancos[_BancosSangre].EmpleadosAsociados[idEmpleado].nombre = nombre ;
         listaBancos[_BancosSangre].EmpleadosAsociados[idEmpleado].rol = rol;
+         listaBancos[_BancosSangre].EmpleadosAsociados[idEmpleado].password = password;
         emit EmpleadoCreadoExitosamente(idEmpleado);
     }else{
         emit ErrorDeCreacion();
@@ -181,6 +192,25 @@ function getDonante(uint _cedula) public{
     }
 }
 
+
+function setUbicacionUnidad(uint lote,  uint donacion, string  memory lat, string memory long) public{
+    listaLotesTotales[lote].listaUnidades[donacion].ubicacion = Ubicacion({long:long,lat:lat});    
+}
+
+function setUbicacionLote(uint lote, string  memory lat, string memory long) public{
+    listaLotesTotales[lote].ubicacion = Ubicacion({long:long,lat:lat});    
+}
+
+
+function getUbicacionUnidad(uint lote, uint donacion) public view returns(string memory, string memory){
+    return(listaLotesTotales[lote].listaUnidades[donacion].ubicacion.long, listaLotesTotales[lote].listaUnidades[donacion].ubicacion.lat);
+}
+
+
+
+function getUbicacionLote(uint lote) public view returns(string memory, string memory){
+    return(listaLotesTotales[lote].ubicacion.long, listaLotesTotales[lote].ubicacion.lat);
+}
 
 
 
