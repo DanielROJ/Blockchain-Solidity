@@ -14,10 +14,20 @@ import {
   MatInputModule,
   MatToolbarModule
 } from '@angular/material';
+import { VistaPrincipalComponent } from './vista-principal/vista-principal.component';
+import { RecoDonantesComponent } from './reco-donantes/reco-donantes.component';
+import { RecoUnidadComponent } from './reco-unidad/reco-unidad.component';
+import { GraficasComponent } from './graficas/graficas.component';
+import { RegistroLugaresComponent } from './registro-lugares/registro-lugares.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    VistaPrincipalComponent,
+    RecoDonantesComponent,
+    RecoUnidadComponent,
+    GraficasComponent,
+    RegistroLugaresComponent
   ],
   imports: [
     BrowserAnimationsModule,

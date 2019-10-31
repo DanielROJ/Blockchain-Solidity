@@ -121,7 +121,7 @@ if(listaDonantes[cedula].cedula == 0){
     emit DonanteCreadoExitosamente(cedula);
 }else{
     emit ErrorDeCreacion();
-    revert('Error en la creacion del DOannte');
+    revert('Error en la creacion del Donante');
 }
 }
 
