@@ -1,7 +1,7 @@
 export class User {
     idUser:number;
     nombre:string;
-    tipo = ["Administracion","Ciudadano"];
+    tipo = ["Ciudadano","Administracion"];
     idrol : number;
 
     getRol(){

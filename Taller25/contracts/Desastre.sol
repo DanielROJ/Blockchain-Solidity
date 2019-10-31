@@ -12,7 +12,7 @@ contract Desastre{
 	    Tipo rol;
 	}
 
-	enum Tipo {Adminsitracion, ciudadano}
+	enum Tipo {ciudadano,Adminsitracion}
 
 	struct RegistroUbicacion{
 	    string longitud;
@@ -30,7 +30,7 @@ contract Desastre{
 		emit correcto(true);
 	}
 	function setRegistro(uint idUser, string memory _fecha, string memory _latitud, string memory _longitud, string memory caudal) public{
-	   if(listaUsuarios[idUser].rol == Tipo.Adminsitracion){
+	   if(listaUsuarios[idUser].idUser == idUser && listaUsuarios[idUser].rol == Tipo.Adminsitracion){
 	    registrosUbicacion[_fecha].longitud = _longitud;
 	    registrosUbicacion[_fecha].latitud = _latitud;
 	    registrosUbicacion[_fecha].caudal = caudal;
@@ -43,12 +43,11 @@ contract Desastre{
 	function getUser(uint id)public view returns(uint,string memory, Tipo){
 	    return(listaUsuarios[id].idUser,listaUsuarios[id].nombre,listaUsuarios[id].rol);
 	}
-	function getRegistro(uint idUser,  string memory Fecha) public{
+	function getRegistro(uint idUser,  string memory Fecha) public view returns(string memory, string memory, string memory){
 	    if(listaUsuarios[idUser].idUser == 0){
-	        emit ErrorCarga();
-	        revert('Error de Autenticacion');
+	        revert('Error');
 	    }else{
-	        emit CargaInformacion(registrosUbicacion[Fecha].latitud,registrosUbicacion[Fecha].longitud,registrosUbicacion[Fecha].caudal);
+	        return (registrosUbicacion[Fecha].latitud,registrosUbicacion[Fecha].longitud,registrosUbicacion[Fecha].caudal);
 	    }
 	}
 

@@ -85,9 +85,13 @@ export class RegistroUserComponent implements OnInit {
 
   getRegistro():void{
     this.bdService.getRegistro(this.model.account,this.usuarios[1].idUser,this.registro.fecha).then(data=>{
+
+   
+      
       this.registro.latitud =data["0"];
       this.registro.longitud = data["1"];
       this.registro.caudal = data["2"];
+    
     })
   }
 

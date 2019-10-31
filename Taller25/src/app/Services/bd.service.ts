@@ -17,10 +17,11 @@ export class BDService {
     try {
       const contratoDepliegue = await this.DesastreCoin.deployed();
       const resultTransaccion = await contratoDepliegue.setUser.sendTransaction(idUser,nombre,tipo,{from:address});
-      if(Boolean(resultTransaccion["0"])){
-        this.setStatus("Se registro Correctamente");
+      if(resultTransaccion.logs[0].args["0"]){
+      this.setStatus('Se registro correctamente');  
+      }else{
+        this.setStatus('Fallo el Registro del Usuario')
       }
-      console.log(resultTransaccion);
     } catch (error) {
       console.log('ERROR PO: '+error);
       this.setStatus("Fallo en la Consulta Servicio");
@@ -39,14 +40,16 @@ export class BDService {
     try {
       const contratoDepliegue = await this.DesastreCoin.deployed();
       const resultTransaccion = await contratoDepliegue.setRegistro.sendTransaction(idUser,fecha,latitud,longitud,caudal,{from:address});
-      if(Boolean(resultTransaccion["0"])){
-        this.setStatus("Se registro Correctamente");
-      }else{
-        this.setStatus("Fallo el registro");
-      }
+      if(resultTransaccion.logs[0].args["0"]){
+        this.setStatus('Se registro correctamente');  
+        }else{
+          this.setStatus('Fallo el Registro de la Ubicacion')
+        }
+        
     } catch (error) {
-      console.log('ERROR POR : '+error);
-      this.setStatus("Fallo en la Consulta Servicio");
+      console.log('ERROR POR : ');
+      console.log(error);
+      this.setStatus("Fallo en el Reigsitro Ubicacion");
     }
   
   }
@@ -86,6 +89,7 @@ export class BDService {
     try { 
       const contratoDepliegue = await this.DesastreCoin.deployed();
       const resultTransaccion = await contratoDepliegue.getRegistro.call(idUser,fecha,{from:address});
+      console.log(resultTransaccion);
       return resultTransaccion;
     } catch (error) {
       console.log('ERROR PO: '+error);
