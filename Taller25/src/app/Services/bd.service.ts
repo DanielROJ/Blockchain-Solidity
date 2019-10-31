@@ -20,6 +20,7 @@ export class BDService {
       if(Boolean(resultTransaccion["0"])){
         this.setStatus("Se registro Correctamente");
       }
+      console.log(resultTransaccion);
     } catch (error) {
       console.log('ERROR PO: '+error);
       this.setStatus("Fallo en la Consulta Servicio");
@@ -28,7 +29,7 @@ export class BDService {
   }
 
 
-  async setRegistroUbicacion(address:string, idUser:Number, fecha:string, latitud:string, longitud:string, caudal:string){
+  async setRegistroUbicacion(address:string, idUser: number, fecha:string, latitud:string, longitud:string, caudal:string){
     if (!this.DesastreCoin) {
       this.setStatus('Metacoin is not loaded, unable to send transaction');
       return;
@@ -37,14 +38,14 @@ export class BDService {
     
     try {
       const contratoDepliegue = await this.DesastreCoin.deployed();
-      const resultTransaccion = await contratoDepliegue.setUser.sendTransaction(idUser,fecha,latitud,longitud,caudal,{from:address});
+      const resultTransaccion = await contratoDepliegue.setRegistro.sendTransaction(idUser,fecha,latitud,longitud,caudal,{from:address});
       if(Boolean(resultTransaccion["0"])){
         this.setStatus("Se registro Correctamente");
       }else{
         this.setStatus("Fallo el registro");
       }
     } catch (error) {
-      console.log('ERROR PO: '+error);
+      console.log('ERROR POR : '+error);
       this.setStatus("Fallo en la Consulta Servicio");
     }
   
@@ -82,9 +83,9 @@ export class BDService {
     }
     this.setStatus('Initiating transaction... (please wait)');
     
-    try {
+    try { 
       const contratoDepliegue = await this.DesastreCoin.deployed();
-      const resultTransaccion = await contratoDepliegue.getUser.call(idUser,fecha,{from:address});
+      const resultTransaccion = await contratoDepliegue.getRegistro.call(idUser,fecha,{from:address});
       return resultTransaccion;
     } catch (error) {
       console.log('ERROR PO: '+error);
