@@ -8,20 +8,20 @@ event DonanteEncontradoExitosamente(uint cedula, uint edad, uint numeroTelefono,
 event DatosNoEncontados();
 event DonanteCreadoExitosamente(uint cedula);
 event ErrorDeCreacion();
-event DatosCargadosExitosamente(); 
+event DatosCargadosExitosamente(bool);
 event EmpleadoCreadoExitosamente(uint idEmpleado);
 event LoteCreadoExitosamente(uint idLote);
 
 struct BancosSangre{
     uint idBanco;
     string direccion;
-    string nombre; 
+    string nombre;
     mapping(uint => Empleado) EmpleadosAsociados;
     mapping(uint => uint) listaLotesPropios;
 }
 
 
-enum TipoBolsa {Extra,Corriente, Doble} 
+enum TipoBolsa {Extra,Corriente, Doble}
 
 struct Empleado{
     uint idEmpleado;
@@ -37,19 +37,7 @@ struct Ubicacion{
 }
 
 
-struct Donacion{
-    uint idDonacion;
-    uint cantidadExtraida;
-    uint numeroVenoponuciones;
-    uint numeroMinExtraccion;
-    string fechaDonacion;
-    Ubicacion ubicacion;
-    Documento HashConsentimiento;
-    Documento HashEiquetaUnidad;
-    Documento HashFirmaDonante;
-    TipoBolsa tipBolsa;
-    Empleado medicoEncargado;
-}
+
 
 struct Documento{
     string Hash;
@@ -68,10 +56,22 @@ struct Donante{
     uint[] peso;
     uint[] altura;
     uint[] TensionArterial;
-    
+    Donacion[] listaDonaciones;
 }
 
-
+struct Donacion{
+    uint idDonacion;
+    uint cantidadExtraida;
+    uint numeroVenoponuciones;
+    uint numeroMinExtraccion;
+    string fechaDonacion;
+    Ubicacion ubicacion;
+    Documento HashConsentimiento;
+    Documento HashEiquetaUnidad;
+    Documento HashFirmaDonante;
+    TipoBolsa tipBolsa;
+    Empleado medicoEncargado;
+}
 
 struct LoteDonacion{
     uint idLote;
@@ -79,14 +79,28 @@ struct LoteDonacion{
     mapping(uint=> Donacion) listaUnidades;
 }
 
-    
-    
-mapping(uint=>LoteDonacion) listaLotesTotales;    
-mapping(uint=>Donante) listaDonantes;    
+
+
+
+
+mapping(uint=>LoteDonacion) listaLotesTotales;
+mapping(uint=>Donante) listaDonantes;
 mapping(address=>BancosSangre) listaBancos;
 
 
-function crearDonacion(address _BancosSangre, uint idDonacion,uint _idLote, uint _cantidadExtraida, uint numeroVenoponuciones, uint numeroMinExtraccion, string memory fechaDonacion, TipoBolsa tipo, uint idMedico)public{
+function getDonacionLote(uint idLote, uint idDonacion)public view returns(uint id, uint cantidadExtraida, uint numeroVenoponuciones, uint numeroMinExtraccion,string memory fechaDonacion, TipoBolsa idBolsa, uint idEmpleado){
+Donacion memory u = listaLotesTotales[idLote].listaUnidades[idDonacion];
+return (u.idDonacion,u.cantidadExtraida,u.numeroVenoponuciones, u.numeroMinExtraccion, u.fechaDonacion,u.tipBolsa, u.medicoEncargado.idEmpleado);
+}
+
+function getDonacionUsuario()public {
+
+}
+
+
+
+
+function setDonacion(address _BancosSangre, uint idDonacion,uint _idLote, uint _cantidadExtraida, uint numeroVenoponuciones, uint numeroMinExtraccion, string memory fechaDonacion, TipoBolsa tipo, uint idMedico)public{
 
     if(listaLotesTotales[_idLote].listaUnidades[idDonacion].idDonacion == 0){
         listaLotesTotales[_idLote].listaUnidades[idDonacion].idDonacion = idDonacion;
@@ -95,64 +109,61 @@ function crearDonacion(address _BancosSangre, uint idDonacion,uint _idLote, uint
         listaLotesTotales[_idLote].listaUnidades[idDonacion].numeroMinExtraccion = numeroMinExtraccion;
         listaLotesTotales[_idLote].listaUnidades[idDonacion].fechaDonacion = fechaDonacion;
         listaLotesTotales[_idLote].listaUnidades[idDonacion].tipBolsa = tipo;
-        listaLotesTotales[_idLote].listaUnidades[idDonacion].medicoEncargado = listaBancos[_BancosSangre].EmpleadosAsociados[idMedico]; 
+        listaLotesTotales[_idLote].listaUnidades[idDonacion].medicoEncargado = listaBancos[_BancosSangre].EmpleadosAsociados[idMedico];
+
+        emit DatosCargadosExitosamente(true);
+    }else{
+        revert('ERROR DE CREACION');
     }
-
-
-
-
-    
 }
 
 
 
 
 
-function createDonante(uint cedula, uint edad, uint numeroTelefono, string memory nombre, string memory apellido, string memory Eps, string memory correoElectronico, string memory genero)public{
+function setDonante(uint cedula, uint edad, uint numeroTelefono, string memory nombre, string memory apellido, string memory Eps, string memory correoElectronico, string memory genero)public{
 
 if(listaDonantes[cedula].cedula == 0){
-    listaDonantes[cedula].cedula =  cedula;
-    listaDonantes[cedula].edad= edad; 
-    listaDonantes[cedula].numeroTelefono=numeroTelefono;
-    listaDonantes[cedula].nombre=nombre;
-    listaDonantes[cedula].apellido=apellido; 
-    listaDonantes[cedula].Eps=Eps;
-    listaDonantes[cedula].correoElectronico=correoElectronico;
-    listaDonantes[cedula].genero=genero;
-    
+    listaDonantes[cedula].cedula = cedula;
+    listaDonantes[cedula].edad = edad;
+    listaDonantes[cedula].numeroTelefono = numeroTelefono;
+    listaDonantes[cedula].nombre = nombre;
+    listaDonantes[cedula].apellido = apellido;
+    listaDonantes[cedula].Eps = Eps;
+    listaDonantes[cedula].correoElectronico = correoElectronico;
+    listaDonantes[cedula].genero = genero;
     emit DonanteCreadoExitosamente(cedula);
 }else{
     emit ErrorDeCreacion();
-    revert();
+    revert('Error en la creacion del Donante');
 }
 }
 
 
-
-function createEmpleado(address _BancosSangre, uint idEmpleado,string memory password, string memory nombre, string memory rol)public{
+function setEmpleado(address _BancosSangre, uint idEmpleado,string memory password, string memory nombre, string memory rol)public{
     if(listaBancos[_BancosSangre].EmpleadosAsociados[idEmpleado].idEmpleado == 0){
-        listaBancos[_BancosSangre].EmpleadosAsociados[idEmpleado].idEmpleado  = idEmpleado;
-        listaBancos[_BancosSangre].EmpleadosAsociados[idEmpleado].nombre = nombre ;
+        listaBancos[_BancosSangre].EmpleadosAsociados[idEmpleado].idEmpleado = idEmpleado;
+        listaBancos[_BancosSangre].EmpleadosAsociados[idEmpleado].nombre = nombre;
         listaBancos[_BancosSangre].EmpleadosAsociados[idEmpleado].rol = rol;
          listaBancos[_BancosSangre].EmpleadosAsociados[idEmpleado].password = password;
         emit EmpleadoCreadoExitosamente(idEmpleado);
     }else{
         emit ErrorDeCreacion();
-        revert();
+        revert('Error en la crecion del Empleado');
     }
 }
 
 
 
-function setDataSalud(uint cedula, uint peso, uint altura, uint TensionArterial) public{
-    if(listaDonantes[cedula].cedula!= 0 ){
+function setSaludDonante(uint cedula, uint peso, uint altura, uint TensionArterial) public{
+    if(listaDonantes[cedula].cedula!=0){
         listaDonantes[cedula].peso.push(peso);
         listaDonantes[cedula].altura.push(altura);
         listaDonantes[cedula].TensionArterial.push(TensionArterial);
-        emit DatosCargadosExitosamente();
+        emit DatosCargadosExitosamente(true);
     }else{
         emit DatosNoEncontados();
-        revert();
+        revert('Error en la carga de datos de salud');
     }
 }
 
@@ -162,7 +173,7 @@ function createLote(uint idLote)public{
       emit LoteCreadoExitosamente(idLote);
     }else{
         emit ErrorDeCreacion();
-        revert();
+        revert('Error en la creacio del lote');
     }
 }
 
@@ -182,23 +193,25 @@ function getBancoSangre(address dirrecionBanco)public view returns(uint,string m
     return(listaBancos[dirrecionBanco].idBanco,listaBancos[dirrecionBanco].direccion, listaBancos[dirrecionBanco].nombre);
 }
 
-    
-function getDonante(uint _cedula) public{
+
+function getDonante(uint _cedula) public view returns(uint cedula, uint edad, uint numeroTelefono, string memory nombre, string memory apellido, string memory Eps, string memory correoElectronico, string memory genero){
     if(listaDonantes[_cedula].cedula != 0){
-     emit DonanteEncontradoExitosamente(listaDonantes[_cedula].cedula,listaDonantes[_cedula].edad,listaDonantes[_cedula].numeroTelefono,listaDonantes[_cedula].nombre,listaDonantes[_cedula].apellido,listaDonantes[_cedula].Eps, listaDonantes[_cedula].correoElectronico,listaDonantes[_cedula].genero);
+        Donante memory  u= listaDonantes[_cedula];
+     return (u.cedula,u.edad,u.numeroTelefono,u.nombre,u.apellido,u.Eps, u.correoElectronico,u.genero);
     }else{
-        emit DatosNoEncontados();
-        revert();
+        return(0,0,0,"","","","","");
     }
 }
 
 
+
+
 function setUbicacionUnidad(uint lote,  uint donacion, string  memory lat, string memory long) public{
-    listaLotesTotales[lote].listaUnidades[donacion].ubicacion = Ubicacion({long:long,lat:lat});    
+    listaLotesTotales[lote].listaUnidades[donacion].ubicacion = Ubicacion({long:long,lat:lat});
 }
 
 function setUbicacionLote(uint lote, string  memory lat, string memory long) public{
-    listaLotesTotales[lote].ubicacion = Ubicacion({long:long,lat:lat});    
+    listaLotesTotales[lote].ubicacion = Ubicacion({long:long,lat:lat});
 }
 
 
@@ -212,8 +225,4 @@ function getUbicacionLote(uint lote) public view returns(string memory, string m
     return(listaLotesTotales[lote].ubicacion.long, listaLotesTotales[lote].ubicacion.lat);
 }
 
-
-
-
-    
 }
