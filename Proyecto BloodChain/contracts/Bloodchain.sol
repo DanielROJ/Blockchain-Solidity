@@ -89,7 +89,8 @@ mapping(address=>BancosSangre) listaBancos;
 
 
 function getDonacionLote(uint idLote, uint idDonacion)public view returns(uint id, uint cantidadExtraida, uint numeroVenoponuciones, uint numeroMinExtraccion,string memory fechaDonacion, TipoBolsa idBolsa, uint idEmpleado){
-return (listaLotesTotales[idLote].listaUnidades[idDonacion].idDonacion,listaLotesTotales[idLote].listaUnidades[idDonacion].cantidadExtraida, listaLotesTotales[idLote].listaUnidades[idDonacion].numeroVenoponuciones, listaLotesTotales[idLote].listaUnidades[idDonacion].numeroMinExtraccion, listaLotesTotales[idLote].listaUnidades[idDonacion].fechaDonacion,listaLotesTotales[idLote].listaUnidades[idDonacion].tipBolsa, listaLotesTotales[idLote].listaUnidades[idDonacion].medicoEncargado.idEmpleado);
+Donacion memory u = listaLotesTotales[idLote].listaUnidades[idDonacion];
+return (u.idDonacion,u.cantidadExtraida,u.numeroVenoponuciones, u.numeroMinExtraccion, u.fechaDonacion,u.tipBolsa, u.medicoEncargado.idEmpleado);
 }
 
 function getDonacionUsuario()public {
@@ -195,7 +196,8 @@ function getBancoSangre(address dirrecionBanco)public view returns(uint,string m
 
 function getDonante(uint _cedula) public view returns(uint cedula, uint edad, uint numeroTelefono, string memory nombre, string memory apellido, string memory Eps, string memory correoElectronico, string memory genero){
     if(listaDonantes[_cedula].cedula != 0){
-     return (listaDonantes[_cedula].cedula,listaDonantes[_cedula].edad,listaDonantes[_cedula].numeroTelefono,listaDonantes[_cedula].nombre,listaDonantes[_cedula].apellido,listaDonantes[_cedula].Eps, listaDonantes[_cedula].correoElectronico,listaDonantes[_cedula].genero);
+        Donante memory  u= listaDonantes[_cedula];
+     return (u.cedula,u.edad,u.numeroTelefono,u.nombre,u.apellido,u.Eps, u.correoElectronico,u.genero);
     }else{
         return(0,0,0,"","","","","");
     }

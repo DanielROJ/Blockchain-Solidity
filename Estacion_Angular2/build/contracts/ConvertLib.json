@@ -25,15 +25,15 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.8+commit.23d335f2\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[{\"name\":\"amount\",\"type\":\"uint256\"},{\"name\":\"conversionRate\",\"type\":\"uint256\"}],\"name\":\"convert\",\"outputs\":[{\"name\":\"convertedAmount\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/droro/Documents/Blockchain/Blockchain-Solidity/Taller25/contracts/ConvertLib.sol\":\"ConvertLib\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/droro/Documents/Blockchain/Blockchain-Solidity/Taller25/contracts/ConvertLib.sol\":{\"keccak256\":\"0x9f8249ffc0dee02477303cf8203490724bb1b4fa95529f57f045b050224f9f3f\",\"urls\":[\"bzzr://ec0c118542cc54ddb3becb123dd560e936da71468f994b39361c5a83c2e48aef\"]}},\"version\":1}",
-  "bytecode": "0x60ba610025600b82828239805160001a60731461001857fe5b30600052607381538281f3fe730000000000000000000000000000000000000000301460806040526004361060335760003560e01c806396e4ee3d146038575b600080fd5b606b60048036036040811015604c57600080fd5b8101908080359060200190929190803590602001909291905050506081565b6040518082815260200191505060405180910390f35b600081830290509291505056fea165627a7a723058208a0b18f648a164c5fa35be1847137a524751f94d65f813859f7f7cdb033cf8d20029",
-  "deployedBytecode": "0x730000000000000000000000000000000000000000301460806040526004361060335760003560e01c806396e4ee3d146038575b600080fd5b606b60048036036040811015604c57600080fd5b8101908080359060200190929190803590602001909291905050506081565b6040518082815260200191505060405180910390f35b600081830290509291505056fea165627a7a723058208a0b18f648a164c5fa35be1847137a524751f94d65f813859f7f7cdb033cf8d20029",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.8+commit.23d335f2\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[{\"name\":\"amount\",\"type\":\"uint256\"},{\"name\":\"conversionRate\",\"type\":\"uint256\"}],\"name\":\"convert\",\"outputs\":[{\"name\":\"convertedAmount\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/droro/Documents/Blockchain/Blockchain-Solidity/Estacion_Angular2/contracts/ConvertLib.sol\":\"ConvertLib\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/droro/Documents/Blockchain/Blockchain-Solidity/Estacion_Angular2/contracts/ConvertLib.sol\":{\"keccak256\":\"0x9f8249ffc0dee02477303cf8203490724bb1b4fa95529f57f045b050224f9f3f\",\"urls\":[\"bzzr://ec0c118542cc54ddb3becb123dd560e936da71468f994b39361c5a83c2e48aef\"]}},\"version\":1}",
+  "bytecode": "0x60ba610025600b82828239805160001a60731461001857fe5b30600052607381538281f3fe730000000000000000000000000000000000000000301460806040526004361060335760003560e01c806396e4ee3d146038575b600080fd5b606b60048036036040811015604c57600080fd5b8101908080359060200190929190803590602001909291905050506081565b6040518082815260200191505060405180910390f35b600081830290509291505056fea165627a7a72305820e9dea8a6e5e06f5803bc06b612e1ae56c419f644375f009a7717b23496b7165b0029",
+  "deployedBytecode": "0x730000000000000000000000000000000000000000301460806040526004361060335760003560e01c806396e4ee3d146038575b600080fd5b606b60048036036040811015604c57600080fd5b8101908080359060200190929190803590602001909291905050506081565b6040518082815260200191505060405180910390f35b600081830290509291505056fea165627a7a72305820e9dea8a6e5e06f5803bc06b612e1ae56c419f644375f009a7717b23496b7165b0029",
   "sourceMap": "25:156:0:-;;132:2:-1;166:7;155:9;146:7;137:37;255:7;249:14;246:1;241:23;235:4;232:33;222:2;;269:9;222:2;293:9;290:1;283:20;323:4;314:7;306:22;347:7;338;331:24",
   "deployedSourceMap": "25:156:0:-;;;;;;;;;;;;;;;;;;;;;;;;47:132;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;47:132:0;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;118:20;161:14;152:6;:23;145:30;;47:132;;;;:::o",
   "source": "pragma solidity ^0.5.0;\n\nlibrary ConvertLib {\n\tfunction convert(uint amount,uint conversionRate) public pure returns (uint convertedAmount)\n\t{\n\t\treturn amount * conversionRate;\n\t}\n}\n",
-  "sourcePath": "/home/droro/Documents/Blockchain/Blockchain-Solidity/Taller25/contracts/ConvertLib.sol",
+  "sourcePath": "/home/droro/Documents/Blockchain/Blockchain-Solidity/Estacion_Angular2/contracts/ConvertLib.sol",
   "ast": {
-    "absolutePath": "/home/droro/Documents/Blockchain/Blockchain-Solidity/Taller25/contracts/ConvertLib.sol",
+    "absolutePath": "/home/droro/Documents/Blockchain/Blockchain-Solidity/Estacion_Angular2/contracts/ConvertLib.sol",
     "exportedSymbols": {
       "ConvertLib": [
         16
@@ -238,7 +238,7 @@
     "src": "0:182:0"
   },
   "legacyAST": {
-    "absolutePath": "/home/droro/Documents/Blockchain/Blockchain-Solidity/Taller25/contracts/ConvertLib.sol",
+    "absolutePath": "/home/droro/Documents/Blockchain/Blockchain-Solidity/Estacion_Angular2/contracts/ConvertLib.sol",
     "exportedSymbols": {
       "ConvertLib": [
         16
@@ -447,63 +447,15 @@
     "version": "0.5.8+commit.23d335f2.Emscripten.clang"
   },
   "networks": {
-    "1572017381536": {
+    "1572612649642": {
       "events": {},
       "links": {},
-      "address": "0x46F103E114F70837F81dcf7417b6BC96767C63e8",
-      "transactionHash": "0x6d6ec7de7c051e02ea022c130df20b12641d098f53af6622f8c92c36a6d2a13b"
-    },
-    "1572155858490": {
-      "events": {},
-      "links": {},
-      "address": "0x1f40aedf8C5CD30F5D320B06375ffC9aC7dB123E",
-      "transactionHash": "0xfd16e86b970d4a48654fa7ddf7c4abce19e46b637d72b7ba6fd37275ae4c7a48"
-    },
-    "1572452580162": {
-      "events": {},
-      "links": {},
-      "address": "0x5DbD845189a6f771Ef6804095c89DCb3a15A4B9D",
-      "transactionHash": "0x0ae01b5741bb0c4923bd0ee797722dbceddf14aa0c7644fea2cb328f100f7e20"
-    },
-    "1572494456285": {
-      "events": {},
-      "links": {},
-      "address": "0x41304ADf4eB3b1454442fBFFBD77C9694247F12E",
-      "transactionHash": "0xc9d0cd0abcf05dea33b99b759b24f18452cbb526f77e2af07ec71dc7b929b2ff"
-    },
-    "1572495519360": {
-      "events": {},
-      "links": {},
-      "address": "0xCf1409417c02040dcB5C921e361E6Da597aa1047",
-      "transactionHash": "0x6c5bc1256f375b14b09ac4f70c00e92c2efdf5394121186e198746c78a644169"
-    },
-    "1572496057756": {
-      "events": {},
-      "links": {},
-      "address": "0x38eeDFD87F9Ba6dB3A9E00931aE3719Cfc2b2aE4",
-      "transactionHash": "0xa4cec7e14a3e53789033559b653ec4d19d4ea25c38019d46c3dcab65e02f8e40"
-    },
-    "1572497059489": {
-      "events": {},
-      "links": {},
-      "address": "0xb4Be6E2C42E0680a20e983578Dde08486077d558",
-      "transactionHash": "0xee2897d0b4d13d5afc10d7e308f12378db72fa2d02c8ea1ab9f50728102c8326"
-    },
-    "1572498174005": {
-      "events": {},
-      "links": {},
-      "address": "0x22F0772419beed3ed171fBd89539247749463320",
-      "transactionHash": "0xffe7285664982166c695b7b05a41698ade23a7a0f30a15d38a1b7aaa54641e4c"
-    },
-    "1572611993590": {
-      "events": {},
-      "links": {},
-      "address": "0xcE95794b9A93cc09B1D80073aB18A72f739DDc63",
-      "transactionHash": "0xfe7a08d81e4df4503438c54ed397e6665ba75f1c81b09d761fcd1038548ec061"
+      "address": "0x226c5744bD315D599A904F0318CE3a5E260A768C",
+      "transactionHash": "0xb26e26a38bb8c812bdb7e1cb8b949461547241aaa28dad60d9655f35034ec3c6"
     }
   },
   "schemaVersion": "3.0.16",
-  "updatedAt": "2019-11-01T12:41:20.147Z",
+  "updatedAt": "2019-11-01T12:52:56.507Z",
   "devdoc": {
     "methods": {}
   },
