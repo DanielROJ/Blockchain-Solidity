@@ -8,7 +8,7 @@ event DonanteEncontradoExitosamente(uint cedula, uint edad, uint numeroTelefono,
 event DatosNoEncontados();
 event DonanteCreadoExitosamente(uint cedula);
 event ErrorDeCreacion();
-event DatosCargadosExitosamente();
+event DatosCargadosExitosamente(bool);
 event EmpleadoCreadoExitosamente(uint idEmpleado);
 event LoteCreadoExitosamente(uint idLote);
 
@@ -37,19 +37,7 @@ struct Ubicacion{
 }
 
 
-struct Donacion{
-    uint idDonacion;
-    uint cantidadExtraida;
-    uint numeroVenoponuciones;
-    uint numeroMinExtraccion;
-    string fechaDonacion;
-    Ubicacion ubicacion;
-    Documento HashConsentimiento;
-    Documento HashEiquetaUnidad;
-    Documento HashFirmaDonante;
-    TipoBolsa tipBolsa;
-    Empleado medicoEncargado;
-}
+
 
 struct Documento{
     string Hash;
@@ -68,10 +56,22 @@ struct Donante{
     uint[] peso;
     uint[] altura;
     uint[] TensionArterial;
-    
+    Donacion[] listaDonaciones;
 }
 
-
+struct Donacion{
+    uint idDonacion;
+    uint cantidadExtraida;
+    uint numeroVenoponuciones;
+    uint numeroMinExtraccion;
+    string fechaDonacion;
+    Ubicacion ubicacion;
+    Documento HashConsentimiento;
+    Documento HashEiquetaUnidad;
+    Documento HashFirmaDonante;
+    TipoBolsa tipBolsa;
+    Empleado medicoEncargado;
+}
 
 struct LoteDonacion{
     uint idLote;
@@ -80,12 +80,26 @@ struct LoteDonacion{
 }
 
 
+
+
+
 mapping(uint=>LoteDonacion) listaLotesTotales;
 mapping(uint=>Donante) listaDonantes;
 mapping(address=>BancosSangre) listaBancos;
 
 
-function crearDonacion(address _BancosSangre, uint idDonacion,uint _idLote, uint _cantidadExtraida, uint numeroVenoponuciones, uint numeroMinExtraccion, string memory fechaDonacion, TipoBolsa tipo, uint idMedico)public{
+function getDonacionLote(uint idLote, uint idDonacion)public view returns(uint id, uint cantidadExtraida, uint numeroVenoponuciones, uint numeroMinExtraccion,string memory fechaDonacion, TipoBolsa idBolsa, uint idEmpleado){
+return (listaLotesTotales[idLote].listaUnidades[idDonacion].idDonacion,listaLotesTotales[idLote].listaUnidades[idDonacion].cantidadExtraida, listaLotesTotales[idLote].listaUnidades[idDonacion].numeroVenoponuciones, listaLotesTotales[idLote].listaUnidades[idDonacion].numeroMinExtraccion, listaLotesTotales[idLote].listaUnidades[idDonacion].fechaDonacion,listaLotesTotales[idLote].listaUnidades[idDonacion].tipBolsa, listaLotesTotales[idLote].listaUnidades[idDonacion].medicoEncargado.idEmpleado);
+}
+
+function getDonacionUsuario()public {
+
+}
+
+
+
+
+function setDonacion(address _BancosSangre, uint idDonacion,uint _idLote, uint _cantidadExtraida, uint numeroVenoponuciones, uint numeroMinExtraccion, string memory fechaDonacion, TipoBolsa tipo, uint idMedico)public{
 
     if(listaLotesTotales[_idLote].listaUnidades[idDonacion].idDonacion == 0){
         listaLotesTotales[_idLote].listaUnidades[idDonacion].idDonacion = idDonacion;
@@ -95,19 +109,18 @@ function crearDonacion(address _BancosSangre, uint idDonacion,uint _idLote, uint
         listaLotesTotales[_idLote].listaUnidades[idDonacion].fechaDonacion = fechaDonacion;
         listaLotesTotales[_idLote].listaUnidades[idDonacion].tipBolsa = tipo;
         listaLotesTotales[_idLote].listaUnidades[idDonacion].medicoEncargado = listaBancos[_BancosSangre].EmpleadosAsociados[idMedico];
+
+        emit DatosCargadosExitosamente(true);
+    }else{
+        revert('ERROR DE CREACION');
     }
-
-
-
-
-
 }
 
 
 
 
 
-function createDonante(uint cedula, uint edad, uint numeroTelefono, string memory nombre, string memory apellido, string memory Eps, string memory correoElectronico, string memory genero)public{
+function setDonante(uint cedula, uint edad, uint numeroTelefono, string memory nombre, string memory apellido, string memory Eps, string memory correoElectronico, string memory genero)public{
 
 if(listaDonantes[cedula].cedula == 0){
     listaDonantes[cedula].cedula = cedula;
@@ -126,8 +139,7 @@ if(listaDonantes[cedula].cedula == 0){
 }
 
 
-
-function createEmpleado(address _BancosSangre, uint idEmpleado,string memory password, string memory nombre, string memory rol)public{
+function setEmpleado(address _BancosSangre, uint idEmpleado,string memory password, string memory nombre, string memory rol)public{
     if(listaBancos[_BancosSangre].EmpleadosAsociados[idEmpleado].idEmpleado == 0){
         listaBancos[_BancosSangre].EmpleadosAsociados[idEmpleado].idEmpleado = idEmpleado;
         listaBancos[_BancosSangre].EmpleadosAsociados[idEmpleado].nombre = nombre;
@@ -142,12 +154,12 @@ function createEmpleado(address _BancosSangre, uint idEmpleado,string memory pas
 
 
 
-function setDataSalud(uint cedula, uint peso, uint altura, uint TensionArterial) public{
+function setSaludDonante(uint cedula, uint peso, uint altura, uint TensionArterial) public{
     if(listaDonantes[cedula].cedula!=0){
         listaDonantes[cedula].peso.push(peso);
         listaDonantes[cedula].altura.push(altura);
         listaDonantes[cedula].TensionArterial.push(TensionArterial);
-        emit DatosCargadosExitosamente();
+        emit DatosCargadosExitosamente(true);
     }else{
         emit DatosNoEncontados();
         revert('Error en la carga de datos de salud');
@@ -181,14 +193,15 @@ function getBancoSangre(address dirrecionBanco)public view returns(uint,string m
 }
 
 
-function getDonante(uint _cedula) public{
+function getDonante(uint _cedula) public view returns(uint cedula, uint edad, uint numeroTelefono, string memory nombre, string memory apellido, string memory Eps, string memory correoElectronico, string memory genero){
     if(listaDonantes[_cedula].cedula != 0){
-     emit DonanteEncontradoExitosamente(listaDonantes[_cedula].cedula,listaDonantes[_cedula].edad,listaDonantes[_cedula].numeroTelefono,listaDonantes[_cedula].nombre,listaDonantes[_cedula].apellido,listaDonantes[_cedula].Eps, listaDonantes[_cedula].correoElectronico,listaDonantes[_cedula].genero);
+     return (listaDonantes[_cedula].cedula,listaDonantes[_cedula].edad,listaDonantes[_cedula].numeroTelefono,listaDonantes[_cedula].nombre,listaDonantes[_cedula].apellido,listaDonantes[_cedula].Eps, listaDonantes[_cedula].correoElectronico,listaDonantes[_cedula].genero);
     }else{
-        emit DatosNoEncontados();
-        revert('Error en la busqueda del donante');
+        return(0,0,0,"","","","","");
     }
 }
+
+
 
 
 function setUbicacionUnidad(uint lote,  uint donacion, string  memory lat, string memory long) public{
@@ -209,8 +222,5 @@ function getUbicacionUnidad(uint lote, uint donacion) public view returns(string
 function getUbicacionLote(uint lote) public view returns(string memory, string memory){
     return(listaLotesTotales[lote].ubicacion.long, listaLotesTotales[lote].ubicacion.lat);
 }
-
-
-
 
 }

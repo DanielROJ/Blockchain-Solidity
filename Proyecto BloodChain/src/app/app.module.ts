@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import {MetaModule} from './meta/meta.module';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -40,7 +39,6 @@ import { RegistroLugaresComponent } from './registro-lugares/registro-lugares.co
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    MetaModule
   ],
   providers: [],
   bootstrap: [AppComponent]
