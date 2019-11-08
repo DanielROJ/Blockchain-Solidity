@@ -15,8 +15,7 @@ export class Web3Service {
 
   public accountsObservable = new BehaviorSubject<string[]>([]);
 
-  constructor() { 
-  }
+ constructor() { this.bootstrapWeb3(); }
 
   public bootstrapWeb3() {
     // Checking if Web3 has been injected by the browser (Mist/MetaMask)
