@@ -3,7 +3,7 @@ pragma solidity ^0.5.1;
 
 contract Trace{
     
-    struct Tru{
+    struct Tru{ // Unidad de valor, en pocas palabra que es lo que se esta firmando 
         bool consumed;
         bool used;
         bool created;
@@ -12,7 +12,7 @@ contract Trace{
         uint consumedBy;
     }
     
-    struct PrimitiveActivity{
+    struct PrimitiveActivity{  //Actores que pueden realizar un Trazo
         bool created;
         string name;
         uint id;
@@ -21,7 +21,7 @@ contract Trace{
     }
     
     mapping(uint => Tru) truLookup;
-    mapping(uint => PrimitiveActivity) activityLookup;
+    mapping(uint => PrimitiveActivity) activityLookup; // Lista de actores que realizaron un trazo 
     
     uint msgOrder;
     
@@ -56,7 +56,7 @@ contract Trace{
     
     modifier primitiveActivityDoesNotExist(uint id){
         if(activityLookup[id].created){
-            revert();
+            revert('El activiti ya fue creado');
         }
         _;
     }
@@ -85,7 +85,7 @@ contract Trace{
     event ActivityConsumes(uint msgOrder, uint currActivity, string activityName, uint currTru);
     
     //listing 4
-    function newTru(uint id) private
+    function newTru(uint id) private //Funcion que permite la creacion de la unidad de valor
     truDoesNotExist(id)
     nonZero(id)
     {
@@ -99,7 +99,7 @@ contract Trace{
     }
     
     //listing 5
-    function newTru(uint id, uint activityId) private
+    function newTru(uint id, uint activityId) private // Metodo que  firma la unidad de valor por su creador.
     truDoesNotExist(id)
     nonZero(id)
     primitiveActivityExists(activityId)
@@ -109,7 +109,7 @@ contract Trace{
     }
     
     //listing 6
-    function consumeTru(uint truId, uint activityId) private
+    function consumeTru(uint truId, uint activityId) private //Meotodo que firman que la unidad de valor fue recibida.
     truExists(truId)
     truAvailable(truId)
     primitiveActivityExists(activityId)
@@ -121,7 +121,7 @@ contract Trace{
     }
     
     //listing 7
-    function newPrimitiveActivity(string memory name, uint id, uint inputTruId, uint outputTruId)
+    function newPrimitiveActivity(string memory name, uint id, uint inputTruId, uint outputTruId) // Metodo que permite Crear un Autor que podra firmar el trazo
     truAvailable(inputTruId)
     truDoesNotExist(outputTruId)
     primitiveActivityDoesNotExist(id)
@@ -142,7 +142,7 @@ contract Trace{
     }
     
     //listing 8
-    function primitiveTrace(uint tru_begin, uint tru_end)
+    function primitiveTrace(uint tru_begin, uint tru_end) //metodo que realiza el dibujo de la Trazabilidad  segun quien lo creo y consumio.
     truExists(tru_begin)
     truExists(tru_end)
     public  {
@@ -164,6 +164,6 @@ contract Trace{
         }
     }
     
-    
+    // Tru begin el ultimo -1  y muestra trazabilidad hasta el segundo de ultimo hacia atras muestra la unidades de valor
     
 }
