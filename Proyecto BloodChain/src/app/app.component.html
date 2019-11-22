@@ -1,7 +1,10 @@
+<head>
+    <base routerLink="funDonante">
+  </head>
 <!-- Top container -->
 <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
     <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open()"><i class="fa fa-bars"></i>  Menu</button>
-    <span class="w3-bar-item w3-right">Logo</span>
+    <span class="w3-bar-item w3-right"><a routerLink=""  class="w3-red w3-text-black">BLOODCHAIN</a></span>
   </div>
   
   <!-- Sidebar/menu -->
@@ -22,22 +25,22 @@
       <h5>Dashboard</h5>
     </div>
     <div class="w3-bar-block">
-      <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-      <a href="#" class="w3-bar-item w3-button w3-padding w3-red"><i class="fa fa-users fa-fw"></i>Inicio</a>
-      <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i> Registro Donante</a>
-      <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i> Buscar Donante</a>
-      <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i> Registrar Donacion</a>
-      <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>Registrar Trazo Unidad</a>
-      <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i> Consultar Donacion</a>
+      <a  class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+      <a routerLink="" class="w3-bar-item w3-button w3-padding w3-red"><i class="fa fa-users fa-fw"></i>Inicio</a>
+      <a routerLink="funDonante" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i> Funciones Donante</a>
+      <a routerLink="funDonacion" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i> Funciones Donacion</a>
+      <a routerLink="funTrazo" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i> Funciones de Trazo</a>
+      <a routerLink="funEmpleado" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>Funciones de Empleados</a>
     </div>
   </nav>
+  
   <!-- Overlay effect when opening sidebar on small screens -->
   <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_open()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
   
   <!-- !PAGE CONTENT! -->
   <div class="w3-main" style="margin-left:300px;margin-top:43px;">
   
-   <app-vista-principal></app-vista-principal>
+      <router-outlet></router-outlet>
 
   <script>
   // Get the Sidebar
