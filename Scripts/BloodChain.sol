@@ -88,6 +88,7 @@ mapping(uint=>Donante) listaDonantes;
 mapping(address=>BancosSangre) listaBancos;
 
 
+//Busqueda de una Donacion por lote.
 function getDonacionLote(uint idLote, uint idDonacion)public view returns(uint id, uint cantidadExtraida, uint numeroVenoponuciones, uint numeroMinExtraccion,string memory fechaDonacion, TipoBolsa idBolsa, uint idEmpleado){
 Donacion memory u = listaLotesTotales[idLote].listaUnidades[idDonacion];
 return (u.idDonacion,u.cantidadExtraida,u.numeroVenoponuciones, u.numeroMinExtraccion, u.fechaDonacion,u.tipBolsa, u.medicoEncargado.idEmpleado);
@@ -99,9 +100,8 @@ function getDonacionUsuario()public {
 
 
 
-
-function setDonacion(address _BancosSangre, uint idDonacion,uint _idLote, uint _cantidadExtraida, uint numeroVenoponuciones, uint numeroMinExtraccion, string memory fechaDonacion, TipoBolsa tipo, uint idMedico)public{
-
+//creacion de una donacion que se agrega aun lote.
+function setDonacion(address _BancosSangre, uint idDonacion,uint _idLote, uint _cantidadExtraida, uint numeroVenoponuciones, uint numeroMinExtraccion, string memory fechaDonacion, TipoBolsa tipo, uint idMedico, uint idUser)public{
     if(listaLotesTotales[_idLote].listaUnidades[idDonacion].idDonacion == 0){
         listaLotesTotales[_idLote].listaUnidades[idDonacion].idDonacion = idDonacion;
         listaLotesTotales[_idLote].listaUnidades[idDonacion].cantidadExtraida = _cantidadExtraida;
@@ -110,7 +110,8 @@ function setDonacion(address _BancosSangre, uint idDonacion,uint _idLote, uint _
         listaLotesTotales[_idLote].listaUnidades[idDonacion].fechaDonacion = fechaDonacion;
         listaLotesTotales[_idLote].listaUnidades[idDonacion].tipBolsa = tipo;
         listaLotesTotales[_idLote].listaUnidades[idDonacion].medicoEncargado = listaBancos[_BancosSangre].EmpleadosAsociados[idMedico];
-
+        listaDonantes[idUser].listaDonaciones.push(listaLotesTotales[_idLote].listaUnidades[idDonacion]);
+        listaBancos[msg.sender].listaLotesPropios
         emit DatosCargadosExitosamente(true);
     }else{
         revert('ERROR DE CREACION');
@@ -119,8 +120,7 @@ function setDonacion(address _BancosSangre, uint idDonacion,uint _idLote, uint _
 
 
 
-
-
+// creacion de un donante de sangre
 function setDonante(uint cedula, uint edad, uint numeroTelefono, string memory nombre, string memory apellido, string memory Eps, string memory correoElectronico, string memory genero)public{
 
 if(listaDonantes[cedula].cedula == 0){
