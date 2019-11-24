@@ -57,6 +57,7 @@ contract EEncuesta{
    //---------------------------------------------------------------------------------------------------------------------------------------Funciones Empresa 
     function setEmpresa(uint idEmpresa) public{
         listaEmpresas[idEmpresa].idEmpresa = idEmpresa;
+        listaEmpresas[idEmpresa].root = true;
         emit CreacionExitosa(true);
     }
 

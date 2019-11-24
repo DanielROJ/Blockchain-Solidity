@@ -1,25 +1,21 @@
 import {Injectable} from '@angular/core';
 import contract from 'truffle-contract';
-import {Subject} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 declare let require: any;
 const Web3 = require('web3');
 
 
 declare let window: any;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Web3Service {
   private web3: any;
   private accounts: string[];
   public ready = false;
 
-  public accountsObservable = new Subject<string[]>();
+  public accountsObservable = new BehaviorSubject<string[]>([]);
 
-  constructor() {
-    window.addEventListener('load', (event) => {
-      this.bootstrapWeb3();
-    });
-  }
+ constructor() { this.bootstrapWeb3(); }
 
   public bootstrapWeb3() {
     // Checking if Web3 has been injected by the browser (Mist/MetaMask)
@@ -50,7 +46,17 @@ export class Web3Service {
     return contractAbstraction;
 
   }
+   
+  /**
+   * Wei
+   */
+  public toWei(nETH:string){
+    return this.web3.utils.toWei(nETH,'ether');
+  }
 
+  public  fromWei(nWEY:string){
+    return this.web3.utils.fromWei(nWEY,'ether');
+  }
   private refreshAccounts() {
     this.web3.eth.getAccounts((err, accs) => {
       console.log('Refreshing accounts');
