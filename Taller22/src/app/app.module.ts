@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {APP_BASE_HREF} from '@angular/common';
+import { OverlayModule } from "@angular/cdk/overlay";
 import {
   MatButtonModule,
   MatCardModule,
@@ -44,7 +45,8 @@ const appRoute : Routes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoute)
+    RouterModule.forRoot(appRoute),
+    OverlayModule
   ],
   providers: [{provide: APP_BASE_HREF, useValue: ''}],
   bootstrap: [AppComponent]

@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
 import contract from 'truffle-contract';
-import {BehaviorSubject} from 'rxjs';
+import {Subject,BehaviorSubject} from 'rxjs';
 declare let require: any;
 const Web3 = require('web3');
 
 
 declare let window: any;
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: 'root' }) 
+
 export class Web3Service {
   private web3: any;
   private accounts: string[];
