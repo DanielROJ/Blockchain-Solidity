@@ -3,7 +3,9 @@ import {ActivatedRoute} from '@angular/router';
 import {GlobalService} from '../Services/global.service';
 import {Web3Service} from '../util/web3.service';
 import { MatSnackBar} from '@angular/material';
-
+import {Empresa} from '../Model/empresa';
+import {Encuestador} from '../Model/encuestador';
+import { _MatTabHeaderMixinBase } from '@angular/material/tabs/typings/tab-header';
 
 declare let require:any;
 const contrato_artefacto = require('../../../build/contracts/EEncuesta.json');
@@ -20,7 +22,8 @@ export class RegistroEntitiesComponent implements OnInit {
 
   public EncuestaCoin: any;
   public accounts: string[];
-  
+  public empresa: Empresa;
+  public encuestador: Encuestador;
   model = {
     amount: 0,
     receiver: '',
@@ -30,7 +33,8 @@ export class RegistroEntitiesComponent implements OnInit {
 
 
   constructor(public route: ActivatedRoute,private web3Service: Web3Service, private matSnackBar: MatSnackBar, private gService:GlobalService) {
-  
+   this.empresa = new Empresa();
+   this.encuestador = new Encuestador();
   }
 
   
