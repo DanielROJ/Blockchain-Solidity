@@ -20,14 +20,16 @@ export class RealizarEncuestaComponent implements OnInit {
 
   public EncuestaCoin:any;
   public accounts: string[];
-
+ 
   model = {
     amount: 0,
     receiver: '',
     name: '',
-    account: ''
+    account: '' 
   };
 
+
+  
 
   constructor(public route: ActivatedRoute,private web3Service: Web3Service, private matSnackBar: MatSnackBar, private gService:GlobalService) { }
 

@@ -34,7 +34,6 @@ export class RegistroEntitiesComponent implements OnInit {
 
   constructor(public route: ActivatedRoute,private web3Service: Web3Service, private matSnackBar: MatSnackBar, private gService:GlobalService) {
    this.empresa = new Empresa();
-   this.encuestador = new Encuestador();
   }
 
   
@@ -54,6 +53,7 @@ export class RegistroEntitiesComponent implements OnInit {
       });
   }
 
+
   setStatus(status) {
     this.matSnackBar.open(status, null, {duration: 3000});
   }
@@ -64,5 +64,14 @@ export class RegistroEntitiesComponent implements OnInit {
       this.model.account = accounts[0];
     });
   }
+
+  async setEmpresa(){
+    this.gService.setEmpresa(this.model.account,this.empresa.idEmpresa).catch(err=>{
+      console.log('ERROR EN SetEMpresa' + err);
+    });
+  }
+
+
+  
 
 }
