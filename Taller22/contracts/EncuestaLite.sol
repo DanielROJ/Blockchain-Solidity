@@ -14,12 +14,10 @@ contract EncuestaLite{
         string url;
         string hs;
     }
-    
  struct Empresa{
         uint idEmpresa;
         address dir;
         mapping(uint=>EncuestaContratada) listaContratos;
-        
  }
  struct EncuestaContratada{
         uint idEncuesta;
@@ -38,28 +36,24 @@ contract EncuestaLite{
 struct Encuestador{
         uint cedula;
     }
- 
+
  mapping(address=> Empresa) listaEmpresas;
- 
- 
+
     function setEmpresa(address DirEmpresa) public{
         listaEmpresas[DirEmpresa].dir = DirEmpresa;
         emit CreacionExitosa(true);
     }
-    
-    
+
      function setEncuestaContratada(address idEmpresa, uint idEncuestaContratada)public{
         listaEmpresas[idEmpresa].listaContratos[idEncuestaContratada].idEncuesta= idEncuestaContratada;
         listaEmpresas[idEmpresa].listaContratos[idEncuestaContratada].indexC = 0;
         emit CreacionExitosa(true);
     }
-    
     function setCheck(address idEmpresa, uint idEncuestaContratada, string memory lugar, string memory fecha, string memory hora, uint idEncuestador, uint idPersona, string memory nombre, string memory url, string memory hs)public {
      uint indexC = 0;
      if(listaEmpresas[idEmpresa].listaContratos[idEncuestaContratada].indexC >0){
          indexC = sizeCheck(idEmpresa,idEncuestaContratada);
      }
-     
      listaEmpresas[idEmpresa].listaContratos[idEncuestaContratada].listaComprobantes[indexC].lugar = lugar;
      listaEmpresas[idEmpresa].listaContratos[idEncuestaContratada].listaComprobantes[indexC].fecha = fecha;
      listaEmpresas[idEmpresa].listaContratos[idEncuestaContratada].listaComprobantes[indexC].hora = hora;

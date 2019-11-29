@@ -15,12 +15,10 @@ import {
   MatInputModule,
   MatToolbarModule
 } from '@angular/material';
-import { RecoEmpresaComponent } from './reco-empresa/reco-empresa.component';
 import { RealizarEncuestaComponent } from './realizar-encuesta/realizar-encuesta.component';
 import { RegistroEntitiesComponent } from './registro-entities/registro-entities.component';
 
 const appRoute : Routes = [
-  {path:'funEmpresa', component:RecoEmpresaComponent},
   {path:'funEncuestador', component:RealizarEncuestaComponent},
   {path:'', component:RegistroEntitiesComponent}
 ];
@@ -30,7 +28,6 @@ const appRoute : Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    RecoEmpresaComponent,
     RealizarEncuestaComponent,
     RegistroEntitiesComponent
   ],
