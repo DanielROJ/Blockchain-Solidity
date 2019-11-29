@@ -55,7 +55,7 @@ export class GlobalService {
   
   }
 
-  async setCheck(address:string, idEncuestaContratada:Number, lugar:string,  fecha:string, hora:string,idEncuestador:Number,idPersona:Number,  nombre:string,  url:string,  hs:string){
+  async setCheck(address:string,addressE:string, idEncuestaContratada:Number, lugar:string,  fecha:string, hora:string,idEncuestador:Number,idPersona:Number,  nombre:string,  url:string,  hs:string){
     if (!this.EncuestaCoin) {
       this.setStatus('Metacoin is not loaded, unable to send transaction');
       return;
@@ -64,7 +64,7 @@ export class GlobalService {
     
     try {
       const contratoDepliegue = await this.EncuestaCoin.deployed();
-      const resultTransaccion = await contratoDepliegue.setCheck.sendTransaction(address,idEncuestaContratada,lugar,fecha,hora,idEncuestador,idPersona,nombre,url,hs, {from:address});
+      const resultTransaccion = await contratoDepliegue.setCheck.sendTransaction(addressE,idEncuestaContratada,lugar,fecha,hora,idEncuestador,idPersona,nombre,url,hs, {from:address});
       if(resultTransaccion.logs[0].args["0"]){
       this.setStatus('Registro de Evidencia Correctamente');  
       }else{

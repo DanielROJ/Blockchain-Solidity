@@ -21,6 +21,7 @@ export class RealizarEncuestaComponent implements OnInit {
   public encuesta:Encuesta;
   public EncuestaCoin:any;
   public accounts: string[];
+  public addEmpr:string;
  
   model = {
     amount: 0,
@@ -59,7 +60,7 @@ export class RealizarEncuestaComponent implements OnInit {
   }
 
   setCheck():void{
-    this.gService.setCheck(this.model.account,this.encuesta.idEncuesta,this.encuesta.lugar,
+    this.gService.setCheck(this.model.account,this.addEmpr,this.encuesta.idEncuesta,this.encuesta.lugar,
       this.encuesta.fecha,this.encuesta.hora,this.encuesta.encuestador.idEncuestador,
       this.encuesta.persona.idPersona,this.encuesta.persona.nombre,this.encuesta.foto.url,
       this.encuesta.foto.hs).catch(err=>{
