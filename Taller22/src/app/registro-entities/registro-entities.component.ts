@@ -4,9 +4,8 @@ import {GlobalService} from '../Services/global.service';
 import {Web3Service} from '../util/web3.service';
 import { MatSnackBar} from '@angular/material';
 import {Empresa} from '../Model/empresa';
-import {Encuestador} from '../Model/encuestador';
 import { _MatTabHeaderMixinBase } from '@angular/material/tabs/typings/tab-header';
-
+import{Encuesta} from '../Model/encuesta';
 declare let require:any;
 const contrato_artefacto = require('../../../build/contracts/EEncuesta.json');
 
@@ -23,7 +22,11 @@ export class RegistroEntitiesComponent implements OnInit {
   public EncuestaCoin: any;
   public accounts: string[];
   public empresa: Empresa;
-  public encuestador: Encuestador;
+  public idEncuestaContratada: Number;
+  public nChecks:number;
+  public indexC:number;
+  public listChecks : Encuesta[];
+  private tmpE : Encuesta;
   model = {
     amount: 0,
     receiver: '',
@@ -65,10 +68,50 @@ export class RegistroEntitiesComponent implements OnInit {
     });
   }
 
-  async setEmpresa(){
-    this.gService.setEmpresa(this.model.account,this.empresa.idEmpresa).catch(err=>{
+  setEmpresa():void{
+    this.gService.setEmpresa(this.model.account).catch(err=>{
       console.log('ERROR EN SetEMpresa' + err);
     });
+  }
+
+  setEncuestaContratada():void{
+     this.gService.setEncuestaContratada(this.model.account,this.idEncuestaContratada).catch(err=>{
+       console.log("Error en el set encuesta "+ err);
+     })
+  }
+
+
+  sizeCheck():void{
+    this.gService.sizeCheck(this.model.account,this.idEncuestaContratada).then(data=>{
+      this.nChecks = +data;
+    }).catch(err=>{
+      console.log('Error en el sizeCheck '+err);
+    })
+  }
+  
+  getCheck():any{
+    this.gService.getCheck(this.model.account,this.idEncuestaContratada,this.indexC).then(data=>{
+        this.tmpE = new Encuesta();
+        this.tmpE.idEncuesta = data["0"];
+        this.tmpE.lugar = data["1"];
+        this.tmpE.fecha = data["2"];
+        this.tmpE.hora = data["3"];
+        this.tmpE.encuestador.idEncuestador = data["4"];
+        this.tmpE.persona.idPersona = data["5"];
+        this.tmpE.persona.nombre = data["6"];
+        this.tmpE.foto.url= data["7"];
+        this.tmpE.foto.hs = data["8"];
+    });
+  }
+
+  getAllchecks():void{
+    this.listChecks = [];
+    this.gService.sizeCheck(this.model.account,this.idEncuestaContratada).then(num=>{
+      for (this.indexC = num; this.indexC >=0; this.indexC--) {
+        this.getCheck()
+        this.listChecks.push(this.tmpE);
+      }
+    })
   }
 
 
