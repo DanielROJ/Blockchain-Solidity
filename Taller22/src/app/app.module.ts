@@ -13,7 +13,8 @@ import {
   MatCardModule,
   MatFormFieldModule,
   MatInputModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatSnackBarModule
 } from '@angular/material';
 import { RealizarEncuestaComponent } from './realizar-encuesta/realizar-encuesta.component';
 import { RegistroEntitiesComponent } from './registro-entities/registro-entities.component';
@@ -42,6 +43,7 @@ const appRoute : Routes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    MatSnackBarModule,
     RouterModule.forRoot(appRoute),
     OverlayModule
   ],

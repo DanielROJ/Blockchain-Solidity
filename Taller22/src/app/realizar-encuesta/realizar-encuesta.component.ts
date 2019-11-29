@@ -15,7 +15,7 @@ const contrato_artefacto = require('../../../build/contracts/EEncuesta.json');
   selector: 'app-realizar-encuesta',
   templateUrl: './realizar-encuesta.component.html',
   styleUrls: ['./realizar-encuesta.component.css'],
-  providers:[GlobalService, MatSnackBar]
+  providers:[GlobalService]
 })
 export class RealizarEncuestaComponent implements OnInit {
   public encuesta:Encuesta;

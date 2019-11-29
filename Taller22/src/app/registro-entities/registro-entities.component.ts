@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {GlobalService} from '../Services/global.service';
 import {Web3Service} from '../util/web3.service';
-import { MatSnackBar} from '@angular/material';
 import {Empresa} from '../Model/empresa';
 import { _MatTabHeaderMixinBase } from '@angular/material/tabs/typings/tab-header';
 import{Encuesta} from '../Model/encuesta';
@@ -15,7 +14,7 @@ const contrato_artefacto = require('../../../build/contracts/EEncuesta.json');
   selector: 'app-registro-entities',
   templateUrl: './registro-entities.component.html',
   styleUrls: ['./registro-entities.component.css'],
-  providers:[GlobalService, MatSnackBar]
+  providers:[GlobalService]
 })
 export class RegistroEntitiesComponent implements OnInit {
 
@@ -35,7 +34,7 @@ export class RegistroEntitiesComponent implements OnInit {
   };
 
 
-  constructor(public route: ActivatedRoute,private web3Service: Web3Service, private matSnackBar: MatSnackBar, private gService:GlobalService) {
+  constructor(public route: ActivatedRoute,private web3Service: Web3Service, private gService:GlobalService) {
    this.empresa = new Empresa();
   }
 
@@ -56,11 +55,6 @@ export class RegistroEntitiesComponent implements OnInit {
       });
   }
 
-
-  setStatus(status) {
-    this.matSnackBar.open(status, null, {duration: 3000});
-  }
-
   watchAccount() {
     this.web3Service.accountsObservable.subscribe((accounts) => {
       this.accounts = accounts;
@@ -75,7 +69,9 @@ export class RegistroEntitiesComponent implements OnInit {
   }
 
   setEncuestaContratada():void{
-     this.gService.setEncuestaContratada(this.model.account,this.idEncuestaContratada).catch(err=>{
+     this.gService.setEncuestaContratada(this.model.account,this.idEncuestaContratada).then(s=>{
+       this.idEncuestaContratada = new Number();
+     }).catch(err=>{
        console.log("Error en el set encuesta "+ err);
      })
   }

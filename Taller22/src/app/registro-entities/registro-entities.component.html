@@ -7,12 +7,46 @@
   </div>
 
   <div>
-    <button (click)="setUser()">Registrar Usuario</button>
+    <button (click)="setEmpresa()">Registrar Empresa</button>
+  </div>
+</form>
+<br>
+<br>
+
+<form>
+  <h4 style="text-align: center;">Registro de Encuestas Contratadas</h4>
+  <div>
+    <label>Idenficiacion del Contrato Encuesta: </label>
+    <input type="number" [(ngModel)]="idEncuestaContratada" placeholder="identificacion" name="ide" required>
+  </div>
+
+  <div>
+    <button (click)="setEncuestaContratada()">Registrar Contrato Encuesta</button>
   </div>
 </form>
 
 <br>
 <br>
+
+
+<form>
+  <h4 style="text-align: center;">Busqueda de Evidencias de las Encuestas</h4>
+  <div>
+    <label>Idenficiacion de la encuesta contratada: </label>
+    <input type="number" [(ngModel)]="idEncuestaContratada" placeholder="ID" name="idE2" required>
+  </div>
+
+  <div>
+    <button (click)="getAllchecks()">Consultar Informacion</button>
+  </div>
+</form>
+
+<br>
+<br>
+
+
+
+
 
 
 

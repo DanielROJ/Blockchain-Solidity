@@ -44,9 +44,9 @@ export class GlobalService {
       const contratoDepliegue = await this.EncuestaCoin.deployed();
       const resultTransaccion = await contratoDepliegue.setEncuestaContratada.sendTransaction(address,idEncuestaContratada,{from:address});
       if(resultTransaccion.logs[0].args["0"]){
-      this.setStatus('Registro de Empresa Correcto');  
+      this.setStatus('Registro del Contrato encuesta Correcto');  
       }else{
-        this.setStatus('Fallo el Registro de la Empresa')
+        this.setStatus('Fallo el Registro del Contrato Encuesta')
       }
     } catch (error) {
       console.log('ERROR PO: '+error);
@@ -66,9 +66,9 @@ export class GlobalService {
       const contratoDepliegue = await this.EncuestaCoin.deployed();
       const resultTransaccion = await contratoDepliegue.setCheck.sendTransaction(address,idEncuestaContratada,lugar,fecha,hora,idEncuestador,idPersona,nombre,url,hs, {from:address});
       if(resultTransaccion.logs[0].args["0"]){
-      this.setStatus('Registro de Empresa Correcto');  
+      this.setStatus('Registro de Evidencia Correctamente');  
       }else{
-        this.setStatus('Fallo el Registro de la Empresa')
+        this.setStatus('Fallo el Registro de Evidecia ')
       }
     } catch (error) {
       console.log('ERROR PO: '+error);
