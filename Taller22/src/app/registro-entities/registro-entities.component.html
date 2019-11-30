@@ -1,6 +1,6 @@
 
 <form>
-  <h4 style="text-align: center;">Registro de Usuarios</h4>
+  <h4 style="text-align: center;">Registro de Empresas</h4>
   <div>
     <label>Idenficiacion de la empresa: </label>
     <input type="text" [(ngModel)]="empresa.idEmpresa" placeholder="name" name="nombre administrador" required>
@@ -44,6 +44,33 @@
 <br>
 <br>
 
+<table *ngIf="listChecks.length() !== 0">
+<tr>
+  <th>Identificacion Encuesta</th>
+  <th>Fecha</th>
+  <th>hora</th>
+  <th>Lugar</th>
+  <th>Idenficiacion Persona</th>
+  <th>Nombre Persona</th>
+  <th>Url de la Foto</th>
+  <th>HASH de verificacion</th>
+  <th>Identifiacion Encuestador</th>
+</tr>
+<tr *ngFor="let item of listChecks">
+  <td>{{item.idEncuesta}}</td>
+  <td>{{item.fecha}}</td>
+  <td>{{item.hora}}</td>
+  <td>{{item.lugar}}</td>
+  <td>{{item.persona.idPersona}}</td>
+  <td>{{item.persona.nombre}}</td>
+  <td>{{item.foto.url}}</td>
+  <td>{{item.foto.hs}}</td>
+  <td>{{item.encuestador.idEncuestador}}</td>
+</tr>
+
+
+
+</table>
 
 
 
