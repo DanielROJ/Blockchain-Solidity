@@ -71,7 +71,7 @@ export class GlobalService {
         this.setStatus('Fallo el Registro de Evidecia ')
       }
     } catch (error) {
-      console.log('ERROR PO: '+error);
+      console.log('ERROR POR: '+error);
       this.setStatus("Fallo en la Consulta Servicio");
     }
   

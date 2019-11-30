@@ -21,7 +21,7 @@ contract EncuestaLite{
  }
  struct EncuestaContratada{
         uint idEncuesta;
-        CheckEncuesta[] listaComprobantes;
+        mapping(uint=>CheckEncuesta) listaComprobantes;
         uint indexC;
  }
  struct CheckEncuesta{
@@ -50,17 +50,14 @@ struct Encuestador{
         emit CreacionExitosa(true);
     }
     function setCheck(address idEmpresa, uint idEncuestaContratada, string memory lugar, string memory fecha, string memory hora, uint idEncuestador, uint idPersona, string memory nombre, string memory url, string memory hs)public {
-     uint indexC = 0;
-     if(listaEmpresas[idEmpresa].listaContratos[idEncuestaContratada].indexC >0){
-         indexC = sizeCheck(idEmpresa,idEncuestaContratada);
-     }
+     uint indexC = 1 + sizeCheck(idEmpresa,idEncuestaContratada);
      listaEmpresas[idEmpresa].listaContratos[idEncuestaContratada].listaComprobantes[indexC].lugar = lugar;
      listaEmpresas[idEmpresa].listaContratos[idEncuestaContratada].listaComprobantes[indexC].fecha = fecha;
      listaEmpresas[idEmpresa].listaContratos[idEncuestaContratada].listaComprobantes[indexC].hora = hora;
      listaEmpresas[idEmpresa].listaContratos[idEncuestaContratada].listaComprobantes[indexC].personaE = PersonaE({cedula:idPersona, nombre:nombre});
      listaEmpresas[idEmpresa].listaContratos[idEncuestaContratada].listaComprobantes[indexC].evidencia = Foto({url:url,hs:hs});
      listaEmpresas[idEmpresa].listaContratos[idEncuestaContratada].listaComprobantes[indexC].encuestador = Encuestador({cedula:idEncuestador});
-     listaEmpresas[idEmpresa].listaContratos[idEncuestaContratada].indexC++;
+     listaEmpresas[idEmpresa].listaContratos[idEncuestaContratada].indexC+=1;
      emit CreacionExitosa(true);
     }
 
