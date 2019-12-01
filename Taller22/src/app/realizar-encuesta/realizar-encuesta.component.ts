@@ -7,7 +7,7 @@ import { Encuesta } from '../Model/encuesta';
 
 
 declare let require:any;
-const contrato_artefacto = require('../../../build/contracts/EEncuesta.json');
+const contrato_artefacto = require('../../../build/contracts/EncuestaLite.json');
 
 
 

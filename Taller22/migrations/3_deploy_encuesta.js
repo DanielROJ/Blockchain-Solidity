@@ -1,4 +1,4 @@
-var EEncuesta = artifacts.require("./EEncuesta.sol");
+var EncuestaLite = artifacts.require("./EncuestaLite.sol");
 module.exports = function(deployer) {
-  deployer.deploy(EEncuesta);
+  deployer.deploy(EncuestaLite);
 };

@@ -37,7 +37,7 @@ button {
     margin-left: .5em;
 }
 
-table{
-  background-color: red;
+table,tr,td{
+  background-color: white;
 }
 

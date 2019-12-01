@@ -2,12 +2,7 @@
 <form>
   <h4 style="text-align: center;">Registro de Empresas</h4>
   <div>
-    <label>Idenficiacion de la empresa: </label>
-    <input type="text" [(ngModel)]="empresa.idEmpresa" placeholder="name" name="nombre administrador" required>
-  </div>
-
-  <div>
-    <button (click)="setEmpresa()">Registrar Empresa</button>
+    <button (click)="setEmpresa()">Registrar Adress Empresa</button>
   </div>
 </form>
 <br>
@@ -44,7 +39,7 @@
 <br>
 <br>
 
-<table *ngIf="listChecks.length !== 0">
+<table *ngIf="listChecks !== undefined && listChecks.length > 0">
 <tr>
   <th>Identificacion Encuesta</th>
   <th>Fecha</th>
@@ -65,7 +60,7 @@
   <td>{{item.persona.nombre}}</td>
   <td>{{item.foto.url}}</td>
   <td>{{item.foto.hs}}</td>
-  <td>{{item.encuestador.idEncuestador}}</td>
+  <td>{{item.encuestador.idEncuestador}}</td>	
 </tr>
 
 

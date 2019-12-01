@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { Encuesta } from '../Model/encuesta';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,7 @@ import { MatSnackBar } from '@angular/material';
 export class GlobalService {
 
   public EncuestaCoin:any;
+  private tmpE:Encuesta;
 
   constructor(private matSnackBar: MatSnackBar){
   }
@@ -90,7 +92,7 @@ export class GlobalService {
       const contratoDepliegue = await this.EncuestaCoin.deployed();
       const resultTransaccion = await contratoDepliegue.sizeCheck.call(address,idEncuestaContratada,{from:address});
       console.log(resultTransaccion);
-      return resultTransaccion["0"];
+      return resultTransaccion.words[0];
     } catch (error) {
       console.log('ERROR PO: '+error);
       this.setStatus("Fallo en la Consulta Servicio");
@@ -98,7 +100,7 @@ export class GlobalService {
   
   }
 
-  async getCheck(address:string, idEncuestaContratada:Number, indexC:Number){
+  async getCheck(address:string, idEncuestaContratada:Number, index:Number){
     if (!this.EncuestaCoin) {
       this.setStatus('Metacoin is not loaded, unable to send transaction');
       return;
@@ -106,9 +108,20 @@ export class GlobalService {
     this.setStatus('Initiating transaction... (please wait)');
     try { 
       const contratoDepliegue = await this.EncuestaCoin.deployed();
-      const resultTransaccion = await contratoDepliegue.getCheck.call(address,idEncuestaContratada,{from:address});
-      console.log(resultTransaccion);
-      return resultTransaccion;
+      const resultTransaccion = await contratoDepliegue.getCheck.call(address,idEncuestaContratada,index,{from:address});
+      
+        this.tmpE = new Encuesta();
+        this.tmpE.idEncuesta = resultTransaccion["0"].words[0];
+        this.tmpE.lugar = resultTransaccion["1"];
+        this.tmpE.fecha = resultTransaccion["2"];
+        this.tmpE.hora = resultTransaccion["3"];
+        this.tmpE.encuestador.idEncuestador = resultTransaccion["4"].words[4];
+        this.tmpE.persona.idPersona = resultTransaccion["5"].words[5];
+        this.tmpE.persona.nombre = resultTransaccion["6"];
+        this.tmpE.foto.url= resultTransaccion["7"];
+        this.tmpE.foto.hs = resultTransaccion["8"];
+      
+      return this.tmpE;
     } catch (error) {
       console.log('ERROR PO: '+error);
       this.setStatus("Fallo en la Consulta Servicio");

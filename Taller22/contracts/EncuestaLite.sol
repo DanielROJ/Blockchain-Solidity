@@ -50,7 +50,7 @@ struct Encuestador{
         emit CreacionExitosa(true);
     }
     function setCheck(address idEmpresa, uint idEncuestaContratada, string memory lugar, string memory fecha, string memory hora, uint idEncuestador, uint idPersona, string memory nombre, string memory url, string memory hs)public {
-     uint indexC = 1 + sizeCheck(idEmpresa,idEncuestaContratada);
+     uint indexC = sizeCheck(idEmpresa,idEncuestaContratada);
      listaEmpresas[idEmpresa].listaContratos[idEncuestaContratada].listaComprobantes[indexC].lugar = lugar;
      listaEmpresas[idEmpresa].listaContratos[idEncuestaContratada].listaComprobantes[indexC].fecha = fecha;
      listaEmpresas[idEmpresa].listaContratos[idEncuestaContratada].listaComprobantes[indexC].hora = hora;

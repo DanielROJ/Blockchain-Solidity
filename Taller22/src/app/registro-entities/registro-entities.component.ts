@@ -6,7 +6,7 @@ import {Empresa} from '../Model/empresa';
 import { _MatTabHeaderMixinBase } from '@angular/material/tabs/typings/tab-header';
 import{Encuesta} from '../Model/encuesta';
 declare let require:any;
-const contrato_artefacto = require('../../../build/contracts/EEncuesta.json');
+const contrato_artefacto = require('../../../build/contracts/EncuestaLite.json');
 
 
 
@@ -23,7 +23,6 @@ export class RegistroEntitiesComponent implements OnInit {
   public empresa: Empresa;
   public idEncuestaContratada: Number;
   public nChecks:number;
-  public indexC:number;
   public listChecks : Encuesta[];
   private tmpE : Encuesta;
   model = {
@@ -85,27 +84,21 @@ export class RegistroEntitiesComponent implements OnInit {
     })
   }
   
-  getCheck():any{
-    this.gService.getCheck(this.model.account,this.idEncuestaContratada,this.indexC).then(data=>{
-        this.tmpE = new Encuesta();
-        this.tmpE.idEncuesta = data["0"];
-        this.tmpE.lugar = data["1"];
-        this.tmpE.fecha = data["2"];
-        this.tmpE.hora = data["3"];
-        this.tmpE.encuestador.idEncuestador = data["4"];
-        this.tmpE.persona.idPersona = data["5"];
-        this.tmpE.persona.nombre = data["6"];
-        this.tmpE.foto.url= data["7"];
-        this.tmpE.foto.hs = data["8"];
+   getCheck(indexC:Number){
+    this.gService.getCheck(this.model.account,this.idEncuestaContratada, indexC).then(data=>{
+        this.tmpE = data;
     });
   }
 
   getAllchecks():void{
     this.listChecks = [];
     this.gService.sizeCheck(this.model.account,this.idEncuestaContratada).then(num=>{
-      for (this.indexC = num; this.indexC >=0; this.indexC--) {
-        this.getCheck()
-        this.listChecks.push(this.tmpE);
+      for (let indexC = num; indexC >=0; indexC--) {
+        this.gService.getCheck(this.model.account,this.idEncuestaContratada, indexC).then(data=>{
+          console.log(data)
+          this.listChecks.push(data);
+          
+      }); 
       }
     })
   }
