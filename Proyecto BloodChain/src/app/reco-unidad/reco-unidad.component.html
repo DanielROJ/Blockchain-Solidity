@@ -12,58 +12,54 @@
     <div id="sec11" class="w3-col l6 m6">
     
       <div>
-       <label>Ingrese ID: </label>
-       <input ng-model="donacion.idDonacion" type="number"  placeholder="name">
+       <label>Ingrese ID Unidad: </label>
+       <input [(ngModel)]="donacion.idDonacion" [ngModelOptions]="{standalone: true}" type="number"  placeholder="id">
      </div>
 
      <div>
         <label>Ingrese ID Lote: </label>
-        <input ng-model="donacion.idLote" type="text"  placeholder="LastName">
+        <input [(ngModel)]="donacion.idLote" type="number" [ngModelOptions]="{standalone: true}" placeholder="id">
      </div>
 
      <div>
         <label>Ingrese la Cantidad Extraida : </label>
-        <input ng-model="donacion.cantidadExtraida"t type="number"  placeholder="No ID">
+        <input [(ngModel)]="donacion.cantidadExtraida" [ngModelOptions]="{standalone: true}" type="number"  placeholder="ml">
      </div>
 
      <div>
         <label>Numero de Venoponuciones: </label>
-        <input ng-model="donacion.numeroVenoponuciones" type="number"  placeholder="Age">
+        <input [(ngModel)]="donacion.numeroVenoponuciones" [ngModelOptions]="{standalone: true}" type="number"  placeholder="n">
      </div>
 
     
      <div>
         <label>Tiempo en MIN de la Extraccion: </label>
-        <input ng-model="donacion.numeroMinExtraccion" type="text"  placeholder="F O M">
+        <input [(ngModel)]="donacion.numeroMinExtraccion"  [ngModelOptions]="{standalone: true}" type="number"  placeholder="min">
      </div>
 
-     <div>
-        <label>Fecha Donacion: </label>
-        <input ng-model="donacion.fechaDonacion" type="text" placeholder="eps" >
-     </div>
-
+    
     </div>
 
     <div id="sec12" class="">
 
         <div>
             <label>Cedula del Donante: </label>
-            <input ng-model="donacion.idDonante" type="text"  placeholder="TEl">
+            <input [(ngModel)]="donacion.idDonante" [ngModelOptions]="{standalone: true}" type="number"  placeholder="ID">
          </div>
 
          <div>
             <label>Archivo de Consetimiento: </label>
-            <input  type="file"  placeholder="email">
+            <input  type="file"  placeholder="file">
          </div>
 
         <div>
             <label>Archivo Etiqueta Unidad: </label>
-            <input  type="file"  placeholder="kg">
+            <input  type="file"  placeholder="file">
          </div>
 
          <div>
             <label>Archivo Firma: </label>
-            <input type="text" ng-model="donacion.altura"  placeholder="cm">
+            <input type="file" placeholder="file">
          </div>
 
          <div>
@@ -71,100 +67,72 @@
             <select >
              <option *ngFor="let item of listBolsa" (click) = "donacion.tipoBolsa = item.idTipo" >{{item.nombre}}</option>
             </select>
-          </div>                      
+          </div>    
+          <div>
+              <label>Fecha Donacion: </label>
+              <input [(ngModel)]="donacion.fechaDonacion" [ngModelOptions]="{standalone: true}" type="text" placeholder="date" >
+           </div>
+                        
     </div>
 
 
    </form>
+   <br>
 
 <div style="text-align: center;">
-<button (click)="setdonacion()" class=" w3-button w3-hover-green w3-round-large w3-red" style="width: 50%;">Registrar Paciente</button>
+<button (click)="setDonacion()" class=" w3-button w3-hover-green w3-round-large w3-red" style="width: 50%;">Registrar Unidad Sangre</button>
 </div>
 <br>
 <br>
 <div style="text-align: center;">
 <div>
-  <label>Ingrese la Cedula de Buqueda</label>
-  <input ng-model="iddonacion" type="text" placeholder="id"><br>  
+  <label>Ingrese el ID de La Unidad</label>
+  <input [(ngModel)]="idDonacion" type="text" placeholder="id"><br>
+  <label>Ingrese el ID del Lote</label>
+  <input [(ngModel)]="idLote" type="text" placeholder="id"><br>  
   <button (click)="getDonacion()" class=" w3-button w3-hover-green w3-round-large w3-blue" style="width: 25%;">Buscar datos Unidad</button>
 </div>
 </div>
 
 
-<table *ngIf="activate === true " >
+<table *ngIf="donacion2!==undefined && activate === true " >
 <tr>
  <th>Dato</th>
  <th>Contenido</th>
 </tr>
 <tr>
  <td>ID donacion </td>
- <td>{{donacion.idDonacion}}</td>
+ <td>{{donacion2.idDonacion}}</td>
 </tr>
 
 
 <tr>
   <td>Fecha De Donacion</td>
-  <td>{{donacion.fechaDonacion}}</td>
+  <td>{{donacion2.fechaDonacion}}</td>
 </tr>
 
 
 <tr>
   <td>Numero de Venoponuciones</td>
-  <td>{{donacion.numeroVenoponuciones}}</td>
+  <td>{{donacion2.numeroVenoponuciones}}</td>
 </tr>
 
 
 <tr>
   <td>Cantidad de Sangre Extraida </td>
-  <td>{{donacion.cantidadExtraida}} lt</td>
+  <td>{{donacion2.cantidadExtraida}} Ml</td>
 </tr>
+
+<tr>
+    <td>Tiempo de la Extraccion</td>
+    <td>{{donacion2.numeroMinExtraccion}}</td>
+  </tr>
+
 
 
 <tr>
   <td>Identificacion del Medico</td>
-  <td>{{donacion.medicoEncargado}}</td>
-</tr>
-
-
-<tr>
-  <td>Eps </td>
-  <td>{{donacion.Eps}}</td>
-</tr>
-
-
-<tr>
-  <td>Correo Electronico </td>
-  <td>{{donacion.correoElectronico}}</td>
-</tr>
-
-
-<tr>
-  <td>Genero </td>
-  <td>{{donacion.genero}}</td>
-</tr>
-
-
-<tr>
-  <td>Peso </td>
-  <td>{{donacion.peso}} KG</td>
-</tr>
-
-
-<tr>
-  <td>Altura </td>
-  <td>{{donacion.altura}} CM</td>
-</tr>
-
-
-<tr>
-  <td>Tesion Arterial </td>
-  <td>{{donacion}}</td>
-</tr>
-
-
-<tr>
-  <td>Tipo de Sangre</td>
-  <td>{{donacion.tipoSangre}}</td>
+  <td>{{donacion2.medicoEncargado}}</td>
 </tr>
 
 </table>

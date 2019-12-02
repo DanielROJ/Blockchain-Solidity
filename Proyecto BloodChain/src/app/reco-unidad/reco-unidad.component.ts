@@ -18,6 +18,7 @@ const contrato_artefacto = require('../../../build/contracts/BloodChain.json');
 })
 export class RecoUnidadComponent implements OnInit {
   public donacion:Donacion;
+  public donacion2:Donacion;
   public listBolsa: TipoBolsa[];
   public BloodCoin: any;
   public accounts = [];
@@ -64,6 +65,7 @@ export class RecoUnidadComponent implements OnInit {
   }
 
   setDonacion():void{
+   
     this.donacionService.setDonacion(this.model.account,this.donacion).catch(err=>{
       console.log('Error en set Donacion '+ err);
     })
@@ -71,9 +73,8 @@ export class RecoUnidadComponent implements OnInit {
 
   getDonacion():void{
     this.donacionService.getDonacionLote(this.model.account,this.idLote,this.idDonacion).then(data=>{
-    this.donacion=new Donacion();
-     this.donacion = data;
      this.activate = true;
+      this.donacion2 = data;
     }).catch(err=>{
       console.log('Error en get Donacion '+err);
     })

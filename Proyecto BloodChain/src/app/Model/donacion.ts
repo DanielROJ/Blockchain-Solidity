@@ -14,7 +14,7 @@ export class Donacion {
     public HashConsentimiento: Documento;
     public HashEtiquetaUnidad: Documento;
     public HashFirmaDonante: Documento;
-    public tipBolsa: Number;
+    public tipBolsa: number;
     public medicoEncargado: Number;
 
     
