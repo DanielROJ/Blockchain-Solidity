@@ -7,9 +7,9 @@ export class Donante {
     public Eps:string;
     public correoElectronico:string;
     public genero:string;
-    public  peso:Number[];
-    public  altura:Number[];
-    public  TensionArterial:Number[];
+    public  peso:Number;
+    public  altura:Number;
+    public  TensionArterial:Number;
     public  cantidadDonaciones:Number;
     public  valido:boolean;
 }

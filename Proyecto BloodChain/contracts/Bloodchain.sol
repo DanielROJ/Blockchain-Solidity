@@ -287,6 +287,17 @@ function getDonante(uint _cedula) public view returns(uint cedula, uint edad, ui
     }
 }
 
+//Busqueda datos Salud Donante
+function getSaludDonante(uint _cedula) public view returns(uint cedula, uint peso, uint altura, uint  tensionArterial){
+    if(listaDonantes[_cedula].cedula != 0){
+        Donante memory  u= listaDonantes[_cedula];
+        uint nElements = u.peso.length;
+     return (u.cedula,u.peso[nElements-1],u.altura[nElements-1],u.TensionArterial[nElements-1]);
+    }else{
+        return(0,0,0,0);
+    }
+}
+
 //BUsqueda de la Ubicacion de una unidad
 function getUbicacionUnidad(uint lote, uint donacion) public view returns(string memory, string memory){
     uint idtru = listaLotesTotales[lote].listaUnidades[donacion].TruEnd;
@@ -392,6 +403,6 @@ return (listaLotesTotales[idLote].listaUnidades[idUnidad].TruInicio, listaLotesT
            emit   TraceDoesNotExist(msgOrder++,tru_begin, tru_end);
         }
     }
-    
+
 
 }
