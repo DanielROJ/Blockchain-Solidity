@@ -21,7 +21,6 @@ import { RecoUnidadComponent } from './reco-unidad/reco-unidad.component';
 import { GraficasComponent } from './graficas/graficas.component';
 import { RecoEmpleadosComponent } from './reco-empleados/reco-empleados.component';
 import { RecoTrazoComponent } from './reco-trazo/reco-trazo.component';
-import { OverlayModule } from "@angular/cdk/overlay";
 
 const appRoute : Routes = [
 {path:'funDonante', component:RecoDonantesComponent},
@@ -57,8 +56,7 @@ const appRoute : Routes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoute),
-    OverlayModule
+    RouterModule.forRoot(appRoute)
   ],
   providers: [{provide: APP_BASE_HREF, useValue: ''}],
   bootstrap: [AppComponent]

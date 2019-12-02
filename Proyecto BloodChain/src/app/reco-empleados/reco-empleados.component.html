@@ -1,21 +1,29 @@
+<section>
+
+    <div id="sc">
+        <div id="title" style="text-align: center;" >
+        <h1>BLOODCHAIN <a class="w3-red" style="text-align: center;"><img src="https://static.thenounproject.com/png/84244-200.png" width="100px" height="100px"></a></h1>
+        <h3>"Trazabilidad y captura de donaciones de Sangre"</h3>
+       </div>
+       </div>
 
 <form>
-  <h4 style="text-align: center;">Busqueda de Evidencias de las Encuestas</h4>
+  <h4 style="text-align: center;">Registro Empleados</h4>
   <div>
     <label>Ingrese Id Empleado: </label>
-    <input type="number" [(ngModel)]="idEncuestaContratada" placeholder="ID" name="idE2" required>
+    <input type="number" [(ngModel)]="empleado.idEmpleado" placeholder="ID" name="idE2" required>
   </div>
   <div>
     <label>Ingrese Nombre Empleado: </label>
-    <input type="text" [(ngModel)]="idEncuestaContratada" placeholder="ID" name="idE2" required>
+    <input type="text" [(ngModel)]="empleado.nombre" placeholder="name" name="idE2" required>
   </div>
   <div>
     <label>Ingrese el password: </label>
-    <input type="password" [(ngModel)]="idEncuestaContratada" placeholder="ID" name="idE2" required>
+    <input type="password" [(ngModel)]="empleado.password" placeholder="password" name="idE2" required>
   </div>
   <div>
     <label>Ingrese el rol: </label>
-    <input type="Text" [(ngModel)]="idEncuestaContratada" placeholder="ID" name="idE2" required>
+    <input type="Text" [(ngModel)]="empleado.rol" placeholder="rol" name="idE2" required>
   </div>
 
   <div>
@@ -25,3 +33,4 @@
 
 <br>
 <br>
+</section>

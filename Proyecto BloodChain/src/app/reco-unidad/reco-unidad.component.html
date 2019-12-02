@@ -1,3 +1,184 @@
-<p>
-  reco-unidad works!
-</p>
+<section>
+
+    <div id="sc">
+    <div id="title" style="text-align: center;" >
+    <h1>BLOODCHAIN <a class="w3-red" style="text-align: center;"><img src="https://static.thenounproject.com/png/84244-200.png" width="100px" height="100px"></a></h1>
+    <h3>"Trazabilidad y captura de donaciones de Sangre"</h3>
+   </div>
+   </div>
+
+   <form style="text-align: center;" (click)="activate=False">
+
+    <div id="sec11" class="w3-col l6 m6">
+    
+      <div>
+       <label>Nombres: </label>
+       <input ng-model="donante.nombre" type="text"  placeholder="name">
+     </div>
+
+     <div>
+        <label>Apellidos: </label>
+        <input ng-model="donante.apellido" type="text"  placeholder="LastName">
+     </div>
+
+     <div>
+        <label>Documento de Identificacion: </label>
+        <input ng-model="donante.cedula"t type="text"  placeholder="No ID">
+     </div>
+
+     <div>
+        <label>Edad: </label>
+        <input ng-model="donante.edad" type="number"  placeholder="Age">
+     </div>
+
+    
+     <div>
+        <label>Genero: </label>
+        <input ng-model="donante.genero" type="text"  placeholder="F O M">
+     </div>
+
+     <div>
+        <label>EPS : </label>
+        <input ng-model="donante.eps" type="text" placeholder="eps" >
+     </div>
+
+    </div>
+
+    <div id="sec12" class="">
+
+        <div>
+            <label>Telefono: </label>
+            <input ng-model="donante.numeroTelefono" type="text"  placeholder="TEl">
+         </div>
+
+         <div>
+            <label>Correo Electronico: </label>
+            <input ng-model="donante.correoElectronico" type="text"  placeholder="email">
+         </div>
+
+        <div>
+            <label>Peso en (KG): </label>
+            <input ng-model="donante.peso" type="text"  placeholder="kg">
+         </div>
+
+         <div>
+            <label>Altura en (CM): </label>
+            <input type="text" ng-model="donante.altura"  placeholder="cm">
+         </div>
+
+         <div>
+            <label>Tension Arterial: </label>
+            <input ng-model="donante.TensionArterial" type="text"  >
+         </div>
+
+         <div>
+            <label>Tipo de Sangre: </label>
+            <input ng-model="donante.tipoSangre" type="text"  placeholder="a-o-b-ab">
+         </div>
+
+         <div>
+           <label>Valido: </label>
+           <input type="radio" ng-model="donante.valido" value="true">Aceptado
+           <input type="radio" ng-model="donante.valido" value="false">No aceptado
+        </div>
+                         
+    </div>
+
+
+   </form>
+
+<div style="text-align: center;">
+<button (click)="setDonante()" class=" w3-button w3-hover-green w3-round-large w3-red" style="width: 50%;">Registrar Paciente</button>
+</div>
+<br>
+<br>
+<div style="text-align: center;">
+<div>
+  <label>Ingrese la Cedula de Buqueda</label>
+  <input ng-model="idDonante" type="text" placeholder="id"><br>  
+  <button (click)="getDonante()" class=" w3-button w3-hover-green w3-round-large w3-blue" style="width: 25%;">Buscar Paciente</button>
+</div>
+</div>
+
+
+<table *ngIf="activate === true " >
+<tr>
+ <th>Dato</th>
+ <th>Contenido</th>
+</tr>
+<tr>
+ <td>Cedula </td>
+ <td>{{donante.cedula}}</td>
+</tr>
+
+
+<tr>
+  <td>Nombre </td>
+  <td>{{donante.nombre}}</td>
+</tr>
+
+
+<tr>
+  <td>Apellidos </td>
+  <td>{{donante.apellido}}</td>
+</tr>
+
+
+<tr>
+  <td>Numero de Telfono </td>
+  <td>{{donante.numeroTelefono}}</td>
+</tr>
+
+
+<tr>
+  <td>Edad </td>
+  <td>{{donante.edad}}</td>
+</tr>
+
+
+<tr>
+  <td>Eps </td>
+  <td>{{donante.Eps}}</td>
+</tr>
+
+
+<tr>
+  <td>Correo Electronico </td>
+  <td>{{donante.correoElectronico}}</td>
+</tr>
+
+
+<tr>
+  <td>Genero </td>
+  <td>{{donante.genero}}</td>
+</tr>
+
+
+<tr>
+  <td>Peso </td>
+  <td>{{donante.peso}} KG</td>
+</tr>
+
+
+<tr>
+  <td>Altura </td>
+  <td>{{donante.altura}} CM</td>
+</tr>
+
+
+<tr>
+  <td>Tesion Arterial </td>
+  <td>{{donante}}</td>
+</tr>
+
+
+<tr>
+  <td>Tipo de Sangre</td>
+  <td>{{donante.tipoSangre}}</td>
+</tr>
+
+</table>
+
+
+
+</section>

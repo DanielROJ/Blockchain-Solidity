@@ -11,5 +11,6 @@ export class Donante {
     public  altura:Number;
     public  TensionArterial:Number;
     public  cantidadDonaciones:Number;
+    public tipoSangre:string;
     public  valido:boolean;
 }

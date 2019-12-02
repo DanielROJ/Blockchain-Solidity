@@ -11,7 +11,8 @@ const contrato_artefacto = require('../../../build/contracts/BloodChain.json');
 @Component({
   selector: 'app-reco-trazo',
   templateUrl: './reco-trazo.component.html',
-  styleUrls: ['./reco-trazo.component.css']
+  styleUrls: ['./reco-trazo.component.css'],
+  providers:[TrazabilidadService]
 })
 export class RecoTrazoComponent implements OnInit {
   public trazo:Trazo;

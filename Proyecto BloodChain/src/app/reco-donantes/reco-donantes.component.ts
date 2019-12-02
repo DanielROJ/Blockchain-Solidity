@@ -11,12 +11,15 @@ const contrato_artefacto = require('../../../build/contracts/BloodChain.json');
 @Component({
   selector: 'app-reco-donantes',
   templateUrl: './reco-donantes.component.html',
-  styleUrls: ['./reco-donantes.component.css']
+  styleUrls: ['./reco-donantes.component.css'],
+  providers:[UsuarioService]
 })
 export class RecoDonantesComponent implements OnInit {
   public donante:Donante;
   public BloodCoin: any;
   public accounts = [];
+  public idDonante:Number;
+  public activate:boolean;
   model = {
     amount: 0,
     receiver: '',
@@ -50,4 +53,24 @@ export class RecoDonantesComponent implements OnInit {
       this.model.account = accounts[0];
     });
   }
+
+  setDonante():void{
+    this.usService.setDonante(this.model.account,this.donante).then(()=>{
+     this.donante=new Donante();
+    }).catch(err=>{
+      console.log("Error en Set donante "+ err);
+    })
+  }
+
+  getDonante():void{
+    if(this.idDonante!=0 && this.donante != undefined)
+    this.usService.getDonante(this.model.account,this.idDonante).then(data=>{
+      this.activate=true; 
+      this.donante=new Donante();
+      this.donante = data;
+    })
+  }
+
+
+
 }

@@ -12,7 +12,8 @@ const contrato_artefacto = require('../../../build/contracts/BloodChain.json');
 @Component({
   selector: 'app-reco-unidad',
   templateUrl: './reco-unidad.component.html',
-  styleUrls: ['./reco-unidad.component.css']
+  styleUrls: ['./reco-unidad.component.css'],
+  providers:[DonacionService]
 })
 export class RecoUnidadComponent implements OnInit {
   public donacion:Donacion;

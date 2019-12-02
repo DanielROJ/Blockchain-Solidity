@@ -125,6 +125,7 @@ struct Donante{
     string apellido;
     string Eps;
     string correoElectronico;
+    string tipoSangre;
     string genero;
     uint[] peso;
     uint[] altura;
@@ -169,7 +170,7 @@ mapping(uint => PrimitiveActivity) activityLookup; // Lista de actores que reali
     uint msgOrder;
 
 
-//Busqueda de una Donacion por lote.
+//Busqueda de una Donacion por lote. 
 function getDonacionLote(uint idLote, uint idDonacion)public view returns(uint id, uint cantidadExtraida, uint numeroVenoponuciones, uint numeroMinExtraccion,string memory fechaDonacion, TipoBolsa idBolsa, uint idEmpleado){
 Donacion memory u = listaLotesTotales[idLote].listaUnidades[idDonacion];
 return (u.idDonacion,u.cantidadExtraida,u.numeroVenoponuciones, u.numeroMinExtraccion, u.fechaDonacion,u.tipBolsa, u.medicoEncargado.idEmpleado);
@@ -218,10 +219,11 @@ if(listaDonantes[cedula].cedula == 0){
 }
 
 
-function setSaludDonante(uint cedula, uint peso, uint altura, uint TensionArterial) public{
+function setSaludDonante(uint cedula, uint peso, uint altura, uint TensionArterial, string memory tipoS) public{
     if(listaDonantes[cedula].cedula!=0){
         listaDonantes[cedula].peso.push(peso);
         listaDonantes[cedula].altura.push(altura);
+         listaDonantes[cedula].tipoSangre = tipoS;
         listaDonantes[cedula].TensionArterial.push(TensionArterial);
         emit DatosCargadosExitosamente(true);
     }else{
@@ -288,13 +290,13 @@ function getDonante(uint _cedula) public view returns(uint cedula, uint edad, ui
 }
 
 //Busqueda datos Salud Donante
-function getSaludDonante(uint _cedula) public view returns(uint cedula, uint peso, uint altura, uint  tensionArterial){
+function getSaludDonante(uint _cedula) public view returns(uint cedula, uint peso, uint altura, uint  TensionArterial, string memory tipoSangre){
     if(listaDonantes[_cedula].cedula != 0){
         Donante memory  u= listaDonantes[_cedula];
         uint nElements = u.peso.length;
-     return (u.cedula,u.peso[nElements-1],u.altura[nElements-1],u.TensionArterial[nElements-1]);
+     return (u.cedula,u.peso[nElements-1],u.altura[nElements-1],u.TensionArterial[nElements-1], u.tipoSangre);
     }else{
-        return(0,0,0,0);
+        return(0,0,0,0,"");
     }
 }
 
@@ -403,6 +405,6 @@ return (listaLotesTotales[idLote].listaUnidades[idUnidad].TruInicio, listaLotesT
            emit   TraceDoesNotExist(msgOrder++,tru_begin, tru_end);
         }
     }
-
+    
 
 }
