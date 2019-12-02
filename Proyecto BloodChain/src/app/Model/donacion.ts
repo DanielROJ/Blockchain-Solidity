@@ -1,10 +1,9 @@
 import { Documento } from './documento';
-import { Empleado } from "./empleado";
-import { TipoBolsa } from './tipo-bolsa';
 
 export class Donacion {
 
     public idDonacion: Number;
+    public idLote:Number;
     public cantidadExtraida: Number;
     public numeroVenoponuciones: Number;
     public numeroMinExtraccion: Number;
@@ -13,10 +12,10 @@ export class Donacion {
     public TruInicio: Number;
     public TruEnd: Number;
     public HashConsentimiento: Documento;
-    public HashEiquetaUnidad: Documento;
+    public HashEtiquetaUnidad: Documento;
     public HashFirmaDonante: Documento;
-    public tipBolsa: TipoBolsa;
-    public medicoEncargado: Empleado;
+    public tipBolsa: Number;
+    public medicoEncargado: Number;
 
     
 

@@ -1,3 +1,9 @@
 export class TipoBolsa {
-    public tipos: ["Extra", "Corriente","Doble"];
+    public idTipo:Number;
+    public nombre:string;
+
+    constructor(id,nom){
+        this.idTipo=id;
+        this.nombre = nom;
+    }
 }

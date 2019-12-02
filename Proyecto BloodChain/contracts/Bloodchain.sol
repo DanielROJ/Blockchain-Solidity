@@ -144,7 +144,7 @@ struct Donacion{
     uint TruInicio;
     uint TruEnd;
     Documento HashConsentimiento;
-    Documento HashEiquetaUnidad;
+    Documento HashEtiquetaUnidad;
     Documento HashFirmaDonante;
     TipoBolsa tipBolsa;
     Empleado medicoEncargado;
