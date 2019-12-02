@@ -12,7 +12,8 @@ import {
   MatCardModule,
   MatFormFieldModule,
   MatInputModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatSnackBarModule
 } from '@angular/material';
 import { VistaPrincipalComponent } from './vista-principal/vista-principal.component';
 import { RecoDonantesComponent } from './reco-donantes/reco-donantes.component';
@@ -20,6 +21,7 @@ import { RecoUnidadComponent } from './reco-unidad/reco-unidad.component';
 import { GraficasComponent } from './graficas/graficas.component';
 import { RecoEmpleadosComponent } from './reco-empleados/reco-empleados.component';
 import { RecoTrazoComponent } from './reco-trazo/reco-trazo.component';
+import { OverlayModule } from "@angular/cdk/overlay";
 
 const appRoute : Routes = [
 {path:'funDonante', component:RecoDonantesComponent},
@@ -51,10 +53,12 @@ const appRoute : Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatToolbarModule,
+    MatSnackBarModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoute)
+    RouterModule.forRoot(appRoute),
+    OverlayModule
   ],
   providers: [{provide: APP_BASE_HREF, useValue: ''}],
   bootstrap: [AppComponent]
