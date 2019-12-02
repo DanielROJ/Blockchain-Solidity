@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import { Donante } from '../Model/donante';
 import { Web3Service } from '../util/web3.service';
 import { UsuarioService } from '../Services/usuario.service';
-
+import {NgForm} from '@angular/forms';
 declare let require:any;
 const contrato_artefacto = require('../../../build/contracts/BloodChain.json');
 
@@ -16,6 +16,7 @@ const contrato_artefacto = require('../../../build/contracts/BloodChain.json');
 })
 export class RecoDonantesComponent implements OnInit {
   public donante:Donante;
+  public donante2:Donante;
   public BloodCoin: any;
   public accounts = [];
   public idDonante:Number;
@@ -30,6 +31,10 @@ export class RecoDonantesComponent implements OnInit {
     this.donante=new Donante();
   }
 
+  onSubmit(f: NgForm) {
+    console.log(f.value);  // { first: '', last: '' }
+    console.log(f.valid);  // false
+  }
  
   ngOnInit() {
     console.log('OnInit: ' + this.web3Service);
@@ -66,8 +71,7 @@ export class RecoDonantesComponent implements OnInit {
     if(this.idDonante!=0 && this.donante != undefined)
     this.usService.getDonante(this.model.account,this.idDonante).then(data=>{
       this.activate=true; 
-      this.donante=new Donante();
-      this.donante = data;
+      this.donante2 = data;
     })
   }
 

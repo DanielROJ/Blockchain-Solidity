@@ -7,39 +7,39 @@
        </div>
        </div>
 
-       <form style="text-align: center;" (click)="activate=False">
+       <form #f="ngForm" (ngSubmit)="onSubmit(f)" style="text-align: center;" (click)="activate=False">
 
         <div id="sec11" class="w3-col l6 m6">
         
           <div>
            <label>Nombres: </label>
-           <input ng-model="donante.nombre" type="text"  placeholder="name">
+           <input [(ngModel)]="donante.nombre" [ngModelOptions]="{standalone: true}" type="text"  placeholder="name">
          </div>
 
          <div>
             <label>Apellidos: </label>
-            <input ng-model="donante.apellido" type="text"  placeholder="LastName">
+            <input [(ngModel)]="donante.apellido" [ngModelOptions]="{standalone: true}" type="text"  placeholder="LastName">
          </div>
 
          <div>
             <label>Documento de Identificacion: </label>
-            <input ng-model="donante.cedula"t type="text"  placeholder="No ID">
+            <input [(ngModel)]="donante.cedula" [ngModelOptions]="{standalone: true}" type="text"  placeholder="No ID">
          </div>
 
          <div>
             <label>Edad: </label>
-            <input ng-model="donante.edad" type="number"  placeholder="Age">
+            <input [(ngModel)]="donante.edad" [ngModelOptions]="{standalone: true}" type="number"  placeholder="Age">
          </div>
 
         
          <div>
             <label>Genero: </label>
-            <input ng-model="donante.genero" type="text"  placeholder="F O M">
+            <input [(ngModel)]="donante.genero" [ngModelOptions]="{standalone: true}"  type="text"  placeholder="F O M">
          </div>
 
          <div>
             <label>EPS : </label>
-            <input ng-model="donante.eps" type="text" placeholder="eps" >
+            <input [(ngModel)]="donante.Eps" [ngModelOptions]="{standalone: true}" type="text" placeholder="eps" >
          </div>
 
         </div>
@@ -48,38 +48,38 @@
 
             <div>
                 <label>Telefono: </label>
-                <input ng-model="donante.numeroTelefono" type="text"  placeholder="TEl">
+                <input [(ngModel)]="donante.numeroTelefono" [ngModelOptions]="{standalone: true}"  type="text"  placeholder="TEl">
              </div>
     
              <div>
                 <label>Correo Electronico: </label>
-                <input ng-model="donante.correoElectronico" type="text"  placeholder="email">
+                <input [(ngModel)]="donante.correoElectronico" [ngModelOptions]="{standalone: true}" type="text"  placeholder="email">
              </div>
     
             <div>
                 <label>Peso en (KG): </label>
-                <input ng-model="donante.peso" type="text"  placeholder="kg">
+                <input [(ngModel)]="donante.peso"  [ngModelOptions]="{standalone: true}"  type="text"  placeholder="kg">
              </div>
     
              <div>
                 <label>Altura en (CM): </label>
-                <input type="text" ng-model="donante.altura"  placeholder="cm">
+                <input type="text" [(ngModel)]="donante.altura" [ngModelOptions]="{standalone: true}"  placeholder="cm">
              </div>
     
              <div>
                 <label>Tension Arterial: </label>
-                <input ng-model="donante.TensionArterial" type="text"  >
+                <input [(ngModel)]="donante.TensionArterial" [ngModelOptions]="{standalone: true}"  type="text"  >
              </div>
     
              <div>
                 <label>Tipo de Sangre: </label>
-                <input ng-model="donante.tipoSangre" type="text"  placeholder="a-o-b-ab">
+                <input [(ngModel)]="donante.tipoSangre" type="text" [ngModelOptions]="{standalone: true}" placeholder="a-o-b-ab">
              </div>
 
              <div>
                <label>Valido: </label>
-               <input type="radio" ng-model="donante.valido" value="true">Aceptado
-               <input type="radio" ng-model="donante.valido" value="false">No aceptado
+               <input type="radio" [(ngModel)]="donante.valido" [ngModelOptions]="{standalone: true}" value="true">Aceptado
+               <input type="radio" [(ngModel)]="donante.valido" [ngModelOptions]="{standalone: true}" value="false">No aceptado
             </div>
                              
         </div>
@@ -95,86 +95,86 @@
 <div style="text-align: center;">
    <div>
       <label>Ingrese la Cedula de Buqueda</label>
-      <input ng-model="idDonante" type="text" placeholder="id"><br>  
+      <input [(ngModel)]="idDonante" type="text" placeholder="id"><br>  
       <button (click)="getDonante()" class=" w3-button w3-hover-green w3-round-large w3-blue" style="width: 25%;">Buscar Paciente</button>
    </div>
 </div>
 
 
-<table *ngIf="activate === true " >
+<table *ngIf="donante2 !== undefined && activate===true " >
    <tr>
      <th>Dato</th>
      <th>Contenido</th>
    </tr>
    <tr>
      <td>Cedula </td>
-     <td>{{donante.cedula}}</td>
+     <td>{{donante2.cedula}}</td>
    </tr>
 
 
    <tr>
       <td>Nombre </td>
-      <td>{{donante.nombre}}</td>
+      <td>{{donante2.nombre}}</td>
     </tr>
  
 
     <tr>
       <td>Apellidos </td>
-      <td>{{donante.apellido}}</td>
+      <td>{{donante2.apellido}}</td>
     </tr>
  
 
     <tr>
-      <td>Numero de Telfono </td>
-      <td>{{donante.numeroTelefono}}</td>
+      <td>Numero de Telefono </td>
+      <td>{{donante2.numeroTelefono}}</td>
     </tr>
 
     
    <tr>
       <td>Edad </td>
-      <td>{{donante.edad}}</td>
+      <td>{{donante2.edad}}</td>
     </tr>
 
     
    <tr>
       <td>Eps </td>
-      <td>{{donante.Eps}}</td>
+      <td>{{donante2.Eps}}</td>
     </tr>
 
     
    <tr>
       <td>Correo Electronico </td>
-      <td>{{donante.correoElectronico}}</td>
+      <td>{{donante2.correoElectronico}}</td>
     </tr>
 
     
    <tr>
       <td>Genero </td>
-      <td>{{donante.genero}}</td>
+      <td>{{donante2.genero}}</td>
     </tr>
 
     
    <tr>
       <td>Peso </td>
-      <td>{{donante.peso}} KG</td>
+      <td>{{donante2.peso}} KG</td>
     </tr>
 
     
    <tr>
       <td>Altura </td>
-      <td>{{donante.altura}} CM</td>
+      <td>{{donante2.altura}} CM</td>
     </tr>
 
     
    <tr>
       <td>Tesion Arterial </td>
-      <td>{{donante}}</td>
+      <td>{{donante2.TensionArterial}}</td>
     </tr>
 
     
    <tr>
       <td>Tipo de Sangre</td>
-      <td>{{donante.tipoSangre}}</td>
+      <td>{{donante2.tipoSangre}}</td>
    </tr>
  
    </table>

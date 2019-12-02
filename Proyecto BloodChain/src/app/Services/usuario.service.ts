@@ -28,7 +28,7 @@ export class UsuarioService {
 
     try {
       const contratoDepliegue = await this.BloodCoin.deployed();
-      const resultTransaccion = await contratoDepliegue.setDonante.sendTransaction(addressBanco, dn.cedula, dn.edad, dn.numeroTelefono, dn.nombre, dn.apellido, dn.Eps, dn.correoElectronico, dn.genero, { from: addressBanco });
+      const resultTransaccion = await contratoDepliegue.setDonante.sendTransaction(dn.cedula, dn.edad, dn.numeroTelefono, dn.nombre, dn.apellido, dn.Eps, dn.correoElectronico, dn.genero,Boolean(dn.valido),{from:addressBanco});
       await this.setSaludDonante(addressBanco,dn);
       if (resultTransaccion.logs[0].args["0"] == dn.cedula) {
         this.setStatus('Se registro correctamente');
@@ -36,7 +36,7 @@ export class UsuarioService {
         this.setStatus('Fallo el Registro del Usuario')
       }
     } catch (error) {
-      console.log('ERROR PO: ' + error);
+      console.log('ERROR setDonante POR : ' + error);
       this.setStatus("Fallo en la Consulta Servicio");
     }
 
@@ -56,15 +56,16 @@ export class UsuarioService {
       const contratoDepliegue = await this.BloodCoin.deployed();
       const resultTransaccion = await contratoDepliegue.getDonante.call(cedula, { from: addressBanco });
       console.log(resultTransaccion)
-      if (resultTransaccion.cedula === 0) {
+      if (resultTransaccion.cedula.words[0] !== 0) {
         this.setStatus('Se Obtubieron los datos con exito')
-        donante.cedula = resultTransaccion.cedula;
-        donante.edad = resultTransaccion.edad;
+        donante.cedula = resultTransaccion.cedula.words[0];
+        donante.edad = resultTransaccion.edad.words[0];
         donante.nombre  = resultTransaccion.nombre;
         donante.apellido = resultTransaccion.apellido;
         donante.Eps = resultTransaccion.Eps;
         donante.correoElectronico = resultTransaccion.correoElectronico;
         donante.genero = resultTransaccion.genero;
+        donante.numeroTelefono = resultTransaccion.numeroTelefono.words[0];
         donante = await this.getSaludDonante(addressBanco,donante);
         return donante;
       } else {
@@ -115,9 +116,9 @@ export class UsuarioService {
       const contratoDepliegue = await this.BloodCoin.deployed();
       const resultTransaccion = await contratoDepliegue.getSaludDonante.call(dn.cedula, {from:addressBanco});
       console.log(resultTransaccion);
-      dn.peso = resultTransaccion.peso;
-      dn.altura = resultTransaccion.altura;
-      dn.TensionArterial = resultTransaccion.TensionArterial;
+      dn.peso = resultTransaccion.peso.words[0];
+      dn.altura = resultTransaccion.altura.words[0];
+      dn.TensionArterial = resultTransaccion.TensionArterial.words[0];
       dn.tipoSangre = resultTransaccion.tipoSangre;
       return dn;
     } catch (error) {
